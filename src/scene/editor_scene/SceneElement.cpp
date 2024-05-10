@@ -94,7 +94,12 @@ void EditorScene::LocalTransformComponent::add_local_transform_imgui_edit_sectio
 }
 
 glm::mat4 EditorScene::LocalTransformComponent::calc_model_matrix() const {
-    return glm::translate(position) * glm::scale(scale);
+    glm::mat4 translate = glm::translate(position);
+    glm::mat4 scaling = glm::scale(scale);
+    glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), euler_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate around x-axis
+    rotation = glm::rotate(rotation, euler_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f)); // Rotate around y-axis
+    rotation = glm::rotate(rotation, euler_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+    return translate * scaling * rotation;
 }
 
 void EditorScene::LocalTransformComponent::update_local_transform_from_json(const json& json) {
@@ -116,6 +121,16 @@ void EditorScene::LitMaterialComponent::add_material_imgui_edit_section(MasterRe
     // Set this to true if the user has changed any of the material values, otherwise the changes won't be propagated
     bool material_changed = false;
     ImGui::Text("Material");
+
+    material_changed |= ImGui::ColorEdit3("Diffuse Tint", &material.diffuse_tint[0]);
+    material_changed |= ImGui::DragFloat("Diffuse Factor", &material.diffuse_tint[3], 0.01f, 0.0f, FLT_MAX);
+    material_changed |= ImGui::ColorEdit3("Specular Tint", &material.specular_tint[0]);
+    material_changed |= ImGui::DragFloat("Specular Factor", &material.specular_tint[3], 0.01f, 0.0f, FLT_MAX);
+    material_changed |= ImGui::ColorEdit3("Ambient Tint", &material.ambient_tint[0]);
+    material_changed |= ImGui::DragFloat("Ambient Tint", &material.ambient_tint[3], 0.01f, 0.0f, FLT_MAX);
+    material_changed |= ImGui::DragFloat("Shininess", &material.shininess, 0.3f, 0.0f, FLT_MAX);
+
+
 
     // Add UI controls here
 

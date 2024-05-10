@@ -1,3 +1,5 @@
+#include <rendering/cameras/PanningCamera.h>
+
 #include "system_interfaces/WindowManager.h"
 #include "rendering/imgui/ImGuiManager.h"
 #include "utility/OpenGL.h"
@@ -12,6 +14,9 @@
 #include "scene/SceneContext.h"
 
 #define GLFW_INCLUDE_NONE
+// Placeholder function for retrieving cursor position
+
+
 
 int main() {
     // Set up the window manager, then create a window with and make it the current context.
@@ -125,6 +130,9 @@ int main() {
     // Lastly destroy the window which will also destroy the OpenGL context, which is why it needs to be last
     window_manager.destroy_window(window);
     WindowManager::cleanup();
+
+
+
 
     return EXIT_SUCCESS;
 }
