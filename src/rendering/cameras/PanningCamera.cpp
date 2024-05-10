@@ -6,7 +6,7 @@
 
 #include "utility/Math.h"
 #include "rendering/imgui/ImGuiManager.h"
-
+//hello
 PanningCamera::PanningCamera() : distance(init_distance), focus_point(init_focus_point), pitch(init_pitch), yaw(init_yaw), near(init_near), fov(init_fov) {}
 
 PanningCamera::PanningCamera(float distance, glm::vec3 focus_point, float pitch, float yaw, float near, float fov)
