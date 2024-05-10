@@ -1,0 +1,9 @@
+/cmake-build-*
+/out
+/build*
+/.idea
+/.vs
+/.vscode
+cits3003_project
+cits3003_project.exe
+.DS*
