@@ -21,7 +21,7 @@ uniform sampler2D specular_map_texture;
 void main() {
 
     // test hard coded scale
-    vec2 texture_scale = vec2(10.0, 10.0);
+    // vec2 texture_scale = vec2(10.0, 10.0);
 
     // Scaled texture coords
     vec2 scaled_coords = frag_in.texture_coordinate * texture_scale;

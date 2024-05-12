@@ -21,7 +21,7 @@ void BaseLitEntityShader::get_uniforms_set_bindings() {
     
     // ------
     //ADDED BELOW LINE FOR TEXTURE SCALING
-    // texture_scale_location = get_uniform_location("texture_scale");
+    texture_scale_location = get_uniform_location("texture_scale");
 
     // Texture sampler bindings
     set_binding("diffuse_texture", 0);
@@ -49,7 +49,8 @@ void BaseLitEntityShader::set_instance_data(const BaseLitEntityInstanceData& ins
 
     // ADDED BLEOW LINE FOR TEXTURES SCALING
     // Set the texture scale uniform
-    // glProgramUniform2fv(id(), texture_scale_location, 1, glm::value_ptr(instance_data.texture_scale));
+    // GLfloat scaleValues[2] = {2.0f, 3.0f};  // Define the scaling factors for x and y
+    // glProgramUniform2fv(id(), texture_scale_location, 1, scaleValues);
 
 }
 

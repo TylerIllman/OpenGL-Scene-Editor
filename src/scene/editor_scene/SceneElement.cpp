@@ -122,6 +122,8 @@ void EditorScene::LitMaterialComponent::add_material_imgui_edit_section(MasterRe
     bool material_changed = false;
     ImGui::Text("Material");
 
+    // Add UI controls here
+    
     material_changed |= ImGui::ColorEdit3("Diffuse Tint", &material.diffuse_tint[0]);
     material_changed |= ImGui::DragFloat("Diffuse Factor", &material.diffuse_tint[3], 0.01f, 0.0f, FLT_MAX);
     material_changed |= ImGui::ColorEdit3("Specular Tint", &material.specular_tint[0]);
@@ -129,11 +131,8 @@ void EditorScene::LitMaterialComponent::add_material_imgui_edit_section(MasterRe
     material_changed |= ImGui::ColorEdit3("Ambient Tint", &material.ambient_tint[0]);
     material_changed |= ImGui::DragFloat("Ambient Tint", &material.ambient_tint[3], 0.01f, 0.0f, FLT_MAX);
     material_changed |= ImGui::DragFloat("Shininess", &material.shininess, 0.3f, 0.0f, FLT_MAX);
-    material_changed |= ImGui::DragFloat("Texture Scale", &material.shininess, 0.3f, 0.0f, FLT_MAX);
 
-
-
-    // Add UI controls here
+    material_changed |= ImGui::SliderFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 10.0f, "%.2f");
 
     ImGui::Spacing();
     if (material_changed) {
