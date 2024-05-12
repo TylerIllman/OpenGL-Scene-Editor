@@ -19,12 +19,6 @@ std::unique_ptr<EditorScene::EntityElement> EditorScene::EntityElement::new_defa
         EntityRenderer::RenderData{
             scene_context.texture_loader.default_white_texture(),
             scene_context.texture_loader.default_white_texture(),
-            
-            // ---------------------------------- //
-            // Added below line to scale Textures
-            // Textures have default scale of 1,1
-            // glm::vec2 texture_scale = glm::vec2(1.0f, 1.0f) // Default scale is 1:1
-
         }
     );
 
