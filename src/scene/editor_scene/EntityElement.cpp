@@ -77,10 +77,6 @@ void EditorScene::EntityElement::add_imgui_edit_section(MasterRenderScene& rende
     scene_context.texture_loader.add_imgui_texture_selector("Diffuse Texture", rendered_entity->render_data.diffuse_texture);
     scene_context.texture_loader.add_imgui_texture_selector("Specular Map", rendered_entity->render_data.specular_map_texture, false);
 
-    // ---------------------------------- //
-    // ADD BELOW LINE FOR TEXTURE SCALING
-    // ImGui::SliderFloat2("Texture Scale", &rendered_entity->render_data.texture_scale.x, 0.01f, 10.0f, "%.2f");
-
     ImGui::Spacing();
 }
 
@@ -94,10 +90,6 @@ void EditorScene::EntityElement::update_instance_data() {
 
     rendered_entity->instance_data.model_matrix = transform;
     rendered_entity->instance_data.material = material;
-
-    // ADDED BELOW LINE 
-    // For textures scaling
-    // rendered_entity->render_data.texture_scale = texture_scale;
 }
 
 const char* EditorScene::EntityElement::element_type_name() const {

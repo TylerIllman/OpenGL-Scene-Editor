@@ -50,8 +50,6 @@ void BaseLitEntityShader::set_instance_data(const BaseLitEntityInstanceData& ins
     // ADDED BLEOW LINE FOR TEXTURES SCALING
     // Set the texture scale uniform
     glProgramUniform2fv(id(), texture_scale_location, 1, &entity_material.texture_scale.x);
-    // GLfloat scaleValues[2] = {2.0f, 3.0f};  // Define the scaling factors for x and y
-    // glProgramUniform2fv(id(), texture_scale_location, 1, &entity_material.texture_scale);
 
 }
 
