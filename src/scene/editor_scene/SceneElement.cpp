@@ -129,6 +129,7 @@ void EditorScene::LitMaterialComponent::add_material_imgui_edit_section(MasterRe
     material_changed |= ImGui::ColorEdit3("Ambient Tint", &material.ambient_tint[0]);
     material_changed |= ImGui::DragFloat("Ambient Tint", &material.ambient_tint[3], 0.01f, 0.0f, FLT_MAX);
     material_changed |= ImGui::DragFloat("Shininess", &material.shininess, 0.3f, 0.0f, FLT_MAX);
+    material_changed |= ImGui::DragFloat("Texture Scale", &material.shininess, 0.3f, 0.0f, FLT_MAX);
 
 
 

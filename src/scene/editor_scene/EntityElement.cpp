@@ -17,7 +17,13 @@ std::unique_ptr<EditorScene::EntityElement> EditorScene::EntityElement::new_defa
         },
         EntityRenderer::RenderData{
             scene_context.texture_loader.default_white_texture(),
-            scene_context.texture_loader.default_white_texture()
+            scene_context.texture_loader.default_white_texture(),
+            
+            // ---------------------------------- //
+            // Added below line to scale Textures
+            // Textures have default scale of 1,1
+            // glm::vec2 texture_scale = glm::vec2(1.0f, 1.0f) // Default scale is 1:1
+
         }
     );
 
@@ -75,6 +81,11 @@ void EditorScene::EntityElement::add_imgui_edit_section(MasterRenderScene& rende
     scene_context.model_loader.add_imgui_model_selector("Model Selection", rendered_entity->model);
     scene_context.texture_loader.add_imgui_texture_selector("Diffuse Texture", rendered_entity->render_data.diffuse_texture);
     scene_context.texture_loader.add_imgui_texture_selector("Specular Map", rendered_entity->render_data.specular_map_texture, false);
+
+    // ---------------------------------- //
+    // ADD BELOW LINE FOR TEXTURE SCALING
+    // ImGui::SliderFloat2("Texture Scale", &rendered_entity->render_data.texture_scale.x, 0.01f, 10.0f, "%.2f");
+
     ImGui::Spacing();
 }
 
@@ -88,8 +99,16 @@ void EditorScene::EntityElement::update_instance_data() {
 
     rendered_entity->instance_data.model_matrix = transform;
     rendered_entity->instance_data.material = material;
+
+    // ADDED BELOW LINE 
+    // For textures scaling
+    // rendered_entity->render_data.texture_scale = texture_scale;
 }
 
 const char* EditorScene::EntityElement::element_type_name() const {
     return ELEMENT_TYPE_NAME;
 }
+
+
+
+
