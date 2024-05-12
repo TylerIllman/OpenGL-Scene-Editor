@@ -13,6 +13,7 @@ std::unique_ptr<EditorScene::AnimatedEntityElement> EditorScene::AnimatedEntityE
             {1.0f, 1.0f, 1.0f, 1.0f},
             {1.0f, 1.0f, 1.0f, 1.0f},
             512.0f,
+            {1.0f, 1.0f} // Added default val for textures scaling
         }},
         AnimatedEntityRenderer::RenderData{
             scene_context.texture_loader.default_white_texture(),
@@ -93,6 +94,7 @@ void EditorScene::AnimatedEntityElement::add_imgui_edit_section(MasterRenderScen
     scene_context.texture_loader.add_imgui_texture_selector("Diffuse Texture", rendered_entity->render_data.diffuse_texture);
     scene_context.texture_loader.add_imgui_texture_selector("Specular Map", rendered_entity->render_data.specular_map_texture, false);
     ImGui::Spacing();
+
 }
 
 void EditorScene::AnimatedEntityElement::update_instance_data() {

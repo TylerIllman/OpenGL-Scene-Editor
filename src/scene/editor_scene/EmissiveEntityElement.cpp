@@ -26,6 +26,7 @@ std::unique_ptr<EditorScene::EmissiveEntityElement> EditorScene::EmissiveEntityE
         glm::vec3{0.0f},
         glm::vec3{1.0f},
         rendered_entity
+        // glm::vec2{1.0f} //Added for texture scaling
     );
 
     new_entity->update_instance_data();
@@ -72,6 +73,9 @@ void EditorScene::EmissiveEntityElement::add_imgui_edit_section(MasterRenderScen
     scene_context.model_loader.add_imgui_model_selector("Model Selection", rendered_entity->model);
     scene_context.texture_loader.add_imgui_texture_selector("Emission Texture", rendered_entity->render_data.emission_texture);
     ImGui::Spacing();
+
+    // ADDED texture scale slider
+    // material_changed |= ImGui::SliderFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 10.0f, "%.2f");
 }
 
 void EditorScene::EmissiveEntityElement::update_instance_data() {
