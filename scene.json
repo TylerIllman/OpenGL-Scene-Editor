@@ -1,0 +1,136 @@
+[
+    {
+        "diffuse_texture": {
+            "filename": "crate.png",
+            "is_flipped": false,
+            "is_srgb": true
+        },
+        "enabled": true,
+        "label": "Entity",
+        "local_transform": {
+            "euler_rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "position": [
+                0.0,
+                -0.009999999776482582,
+                0.0
+            ],
+            "scale": [
+                10.0,
+                1.0,
+                10.0
+            ]
+        },
+        "material": {
+            "ambient_tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse_tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "shininess": 128.0,
+            "specular_tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "texture_scale": [
+                10.0,
+                10.0
+            ]
+        },
+        "model": "double_plane.obj",
+        "name": "Ground Plane",
+        "specular_map_texture": {
+            "filename": "[WHITE]",
+            "is_flipped": false,
+            "is_srgb": false
+        }
+    },
+    {
+        "colour": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "enabled": true,
+        "label": "Point Light",
+        "name": "Default Point Light",
+        "position": [
+            1.0,
+            2.0,
+            1.0
+        ],
+        "visible": true,
+        "visual_scale": 1.0
+    },
+    {
+        "diffuse_texture": {
+            "filename": "crate.png",
+            "is_flipped": false,
+            "is_srgb": true
+        },
+        "enabled": true,
+        "label": "Entity",
+        "local_transform": {
+            "euler_rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "material": {
+            "ambient_tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse_tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "shininess": 512.0,
+            "specular_tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "texture_scale": [
+                1.0,
+                4.269999980926514
+            ]
+        },
+        "model": "crate.obj",
+        "name": "New Entity",
+        "specular_map_texture": {
+            "filename": "crate.png",
+            "is_flipped": false,
+            "is_srgb": false
+        }
+    }
+]

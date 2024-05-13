@@ -501,6 +501,7 @@ json EditorScene::EditorScene::element_to_labelled_json(const SceneElement& elem
 }
 
 void EditorScene::EditorScene::add_labelled_json_element(const SceneContext& scene_context, ElementRef parent, const ElementList& list, const json& j) {
+
     if (j.contains("error")) {
         std::cerr << "Unable to load element due to error, so skipping. Error:" << std::endl;
         std::cerr << j["error"] << std::endl;

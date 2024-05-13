@@ -146,6 +146,8 @@ void EditorScene::LitMaterialComponent::update_material_from_json(const json& js
     material.specular_tint = m["specular_tint"];
     material.ambient_tint = m["ambient_tint"];
     material.shininess = m["shininess"];
+    // ADDED FOR TEXTURE SCALING
+    material.texture_scale = m["texture_scale"];
 }
 
 json EditorScene::LitMaterialComponent::material_into_json() const {
@@ -154,6 +156,8 @@ json EditorScene::LitMaterialComponent::material_into_json() const {
         {"specular_tint", material.specular_tint},
         {"ambient_tint", material.ambient_tint},
         {"shininess", material.shininess},
+        // ADDED TO STORE TEXTURE SCALING
+        {"texture_scale", material.texture_scale}
     }};
 }
 
