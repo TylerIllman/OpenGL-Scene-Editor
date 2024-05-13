@@ -14,6 +14,7 @@ std::unique_ptr<EditorScene::PointLightElement> EditorScene::PointLightElement::
         PointLight::create(
             glm::vec3{}, // Set via update_instance_data()
             glm::vec4{1.0f}
+            // glm::vec3{1.0f, 0.0f, 0.25f} //default vals for light attenuation
         ),
         EmissiveEntityRenderer::Entity::create(
             scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("sphere.obj"),
@@ -40,6 +41,8 @@ std::unique_ptr<EditorScene::PointLightElement> EditorScene::PointLightElement::
     light_element->light->colour = j["colour"];
     light_element->visible = j["visible"];
     light_element->visual_scale = j["visual_scale"];
+    // Added for attenuation
+    // light_element->light_attenuation = j["light_attenuation"];
 
     light_element->update_instance_data();
     return light_element;
@@ -51,6 +54,8 @@ json EditorScene::PointLightElement::into_json() const {
         {"colour",       light->colour},
         {"visible",      visible},
         {"visual_scale", visual_scale},
+        // Added for parameterisation of attenuation
+        // {"light_attenuation", light_attenuation}
     };
 }
 
@@ -76,6 +81,11 @@ void EditorScene::PointLightElement::add_imgui_edit_section(MasterRenderScene& r
     transformUpdated |= ImGui::Checkbox("Show Visuals", &visible);
     transformUpdated |= ImGui::DragFloat("Visual Scale", &visual_scale, 0.01f, 0.0f, FLT_MAX);
     ImGui::DragDisableCursor(scene_context.window);
+
+    // Added for light attenuation
+    // ImGui::Spacing();
+    // transformUpdated |= ImGui::DragFloat3("Visual Scale", &light_attenuation.x, 0.01f, 0.0f, FLT_MAX);
+
 
     if (transformUpdated) {
         update_instance_data();

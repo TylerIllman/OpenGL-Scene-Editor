@@ -63,6 +63,8 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
 
         point_lights_ubo.data[i].position = point_light.position;
         point_lights_ubo.data[i].colour = scaled_colour;
+        // ADDED below line for light attenuation
+        // point_lights_ubo.data[i].light_attenuation = point_light.light_attenuation;
     }
 
     set_vert_define("NUM_PL", Formatter() << count);

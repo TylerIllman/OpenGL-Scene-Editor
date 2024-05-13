@@ -15,12 +15,16 @@ struct LightCalculatioData {
     vec3 ws_frag_position;
     vec3 ws_view_dir;
     vec3 ws_normal;
+    // Added for parameterising light attenuation
+
 };
 
 struct PointLightData {
     vec3 position;
     vec3 colour;
+    // vec3 light_attenuation;
 };
+
 
 // Calculations
 
@@ -33,8 +37,11 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
     // Calculate distance between fragment and light
     float distance = length(ws_light_offset);
 
+    vec3 light_attenuation = vec3(1.0, 0.0, 0.25);
+
     // Attenuation factor using inverse square law
-    float attenuation = 1.0 / (1.0 + 0.25 * distance * distance);
+    // float attenuation = 1.0 / (1.0 + 0.25 * distance * distance);
+    float attenuation = 1.0 / (light_attenuation.x + light_attenuation.y * distance + light_attenuation.z * distance * distance);
 
     // Ambient
     vec3 ambient_component = attenuation * ambient_factor * point_light.colour;

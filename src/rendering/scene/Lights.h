@@ -31,6 +31,8 @@ struct PointLight {
     struct Data {
         alignas(16) glm::vec3 position;
         alignas(16) glm::vec3 colour;
+        // added for light attenuation
+        // alignas(16) glm::vec3 light_attenuation;
     };
 };
 
