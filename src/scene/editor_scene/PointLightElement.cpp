@@ -42,7 +42,7 @@ std::unique_ptr<EditorScene::PointLightElement> EditorScene::PointLightElement::
     light_element->visible = j["visible"];
     light_element->visual_scale = j["visual_scale"];
     // Added for attenuation
-    // light_element->light_attenuation = j["light_attenuation"];
+    light_element->light->light_attenuation = j["light_attenuation"];
 
     light_element->update_instance_data();
     return light_element;
@@ -55,7 +55,7 @@ json EditorScene::PointLightElement::into_json() const {
         {"visible",      visible},
         {"visual_scale", visual_scale},
         // Added for parameterisation of attenuation
-        // {"light_attenuation", light_attenuation}
+        {"light_attenuation", light->light_attenuation}
     };
 }
 
@@ -84,7 +84,7 @@ void EditorScene::PointLightElement::add_imgui_edit_section(MasterRenderScene& r
 
     // Added for light attenuation
     // ImGui::Spacing();
-    // transformUpdated |= ImGui::DragFloat3("Visual Scale", &light_attenuation.x, 0.01f, 0.0f, FLT_MAX);
+    transformUpdated |= ImGui::DragFloat3("Visual Scale", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
 
 
     if (transformUpdated) {

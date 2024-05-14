@@ -1,9 +1,9 @@
 [
     {
         "diffuse_texture": {
-            "filename": "crate.png",
+            "filename": "[WHITE]",
             "is_flipped": false,
-            "is_srgb": true
+            "is_srgb": false
         },
         "enabled": true,
         "label": "Entity",
@@ -45,8 +45,8 @@
                 1.0
             ],
             "texture_scale": [
-                10.0,
-                10.0
+                0.0,
+                0.0
             ]
         },
         "model": "double_plane.obj",
@@ -66,11 +66,16 @@
         ],
         "enabled": true,
         "label": "Point Light",
+        "light_attenuation": [
+            0.0,
+            0.05000000074505806,
+            0.4000000059604645
+        ],
         "name": "Default Point Light",
         "position": [
             1.0,
-            2.0,
-            1.0
+            2.309999942779541,
+            0.4300000071525574
         ],
         "visible": true,
         "visual_scale": 1.0
@@ -90,8 +95,8 @@
                 0.0
             ],
             "position": [
-                0.0,
-                0.0,
+                -2.619999885559082,
+                1.1799999475479126,
                 0.0
             ],
             "scale": [
@@ -118,14 +123,14 @@
                 1.0,
                 1.0,
                 1.0,
-                1.0
+                33.869998931884766
             ],
             "texture_scale": [
-                1.0,
-                4.269999980926514
+                2.5899999141693115,
+                7.989999771118164
             ]
         },
-        "model": "crate.obj",
+        "model": "cube.obj",
         "name": "New Entity",
         "specular_map_texture": {
             "filename": "crate.png",
