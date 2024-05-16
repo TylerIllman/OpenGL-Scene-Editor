@@ -1,5 +1,8 @@
 #include "EditorScene.h"
 
+// ADDED below to help with import new models
+#include <filesystem> 
+
 #include <tinyfiledialogs/tinyfiledialogs.h>
 
 #include "rendering/imgui/ImGuiManager.h"
@@ -444,6 +447,16 @@ void EditorScene::EditorScene::add_imgui_scene_hierarchy(const SceneContext& sce
             ImGui::InputText("File Path", &none, ImGuiInputTextFlags_ReadOnly);
             scene_context.window.set_title_suffix(std::nullopt);
         }
+
+        // Added below for custom object imports
+        ImGui::Spacing();
+        ImGui::Spacing();
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+        if (ImGui::Button("Import New Model") || (scene_context.window.was_key_pressed(GLFW_KEY_S) && ctrl_is_pressed && !shift_is_pressed)) {
+          import_new_obj();
+        }
     }
     ImGui::End();
 }
@@ -634,3 +647,36 @@ void EditorScene::EditorScene::load_from_json_file(const SceneContext& scene_con
         tinyfd_messageBox("Failed to open File", "See Console For Error", "ok", "error", 1);
     }
 }
+
+
+void EditorScene::EditorScene::import_new_obj() {
+    const auto init_path = (std::filesystem::current_path() / "scene.json").string();
+
+#ifdef __APPLE__
+    // Open a file dialog without a filter on macOS.
+    const char* path = tinyfd_openFileDialog("Open Scene", init_path.c_str(), 0, nullptr, nullptr, false);
+#else
+    const char* filter = "*.json";
+    const char* path = tinyfd_openFileDialog("Open Scene", init_path.c_str(), 1, &filter, "Json Files", false);
+#endif
+
+    if (path == nullptr) return;  // Exit if no file was selected
+
+    // dir to save new models
+    std::string target_directory = "res/models/";
+
+    // Construct the full target path including the file name
+    std::string target_path = target_directory + std::filesystem::path(path).filename().string();
+
+    // Try to move the selected file to the specified directory
+    try {
+        // Moving the file using filesystem rename
+        std::filesystem::rename(path, target_path);
+        std::cout << "File moved successfully to: " << target_path << std::endl;
+    } catch (const std::filesystem::filesystem_error& e) {
+        std::cerr << "Failed to move file: " << e.what() << std::endl;
+    }
+}
+
+
+

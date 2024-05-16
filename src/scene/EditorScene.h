@@ -61,6 +61,8 @@ namespace EditorScene {
         CameraInterface& get_camera() override;
         void close(const SceneContext& scene_context) override;
 
+        // ADDED BELOW for importing new objs
+        void import_new_obj();  
     private:
         /// Helpers to add the two ImGUI windows use to control the scene editor
         void add_imgui_selection_editor(const SceneContext& scene_context);
