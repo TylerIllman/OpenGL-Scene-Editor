@@ -84,7 +84,7 @@ void EditorScene::PointLightElement::add_imgui_edit_section(MasterRenderScene& r
 
     // Added for light attenuation
     // ImGui::Spacing();
-    transformUpdated |= ImGui::DragFloat3("Visual Scale", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
+    transformUpdated |= ImGui::DragFloat3("Light Attenuation", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
 
 
     if (transformUpdated) {
