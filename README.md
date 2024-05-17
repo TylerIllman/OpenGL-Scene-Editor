@@ -20,3 +20,12 @@ ALSO: Had to edit the update material from json and material to json file ins th
 edited pointLightElement.cpp: added attenuation vars
 editied Lights.h: edited struct to allow for attenuation
 Baselitentityshader.cpp: added line in setpoints to update attenuation params
+
+# Part H: Directional Light Source
+
+- In Lights.h duplicated the representation of point light struct and created a new Directional struct. Also edited the LightScene struct store a list of the directional lights
+- Added DirectionalLightElement.h to entity_scene dir
+- Added DirectionalLightElement.cpp to entity_scene dir
+- MasterRenderScene.h
+- CMakeLists.txt added the diractional light files to the build
+- MasterRenderScene added funcs to remove and insert directional

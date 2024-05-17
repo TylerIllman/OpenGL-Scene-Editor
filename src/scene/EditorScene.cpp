@@ -16,6 +16,9 @@
 #include "editor_scene/GroupElement.h"
 #include "scene/SceneContext.h"
 
+// Add to have directional light
+#include "editor_scene/DirectionalLightElement.h"
+
 EditorScene::EditorScene::EditorScene() {
     /// Initialise the scene_root and specify nothing selected
     scene_root = std::make_shared<std::list<std::unique_ptr<SceneElement>>>(std::list<std::unique_ptr<SceneElement>>{});
@@ -104,6 +107,8 @@ void EditorScene::EditorScene::open(const SceneContext& scene_context) {
     /// All the light generators, new light types must be registered here to be able to be created in the UI
     light_generators = {
         {PointLightElement::ELEMENT_TYPE_NAME, [](const SceneContext& scene_context, ElementRef parent) { return PointLightElement::new_default(scene_context, parent); }},
+        // ADDED new light type for directional light
+        {DirectionalLightElement::ELEMENT_TYPE_NAME, [](const SceneContext& scene_context, ElementRef parent) { return DirectionalLightElement::new_default(scene_context, parent); }},
     };
 
     /// All the element generators, new element types must be registered here to be able to be loaded from json
