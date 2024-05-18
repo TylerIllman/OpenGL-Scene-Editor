@@ -41,7 +41,7 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     light_element->visible = j["visible"];
     light_element->visual_scale = j["visual_scale"];
     // Added for attenuation
-    light_element->light->light_attenuation = j["light_attenuation"];
+    // light_element->light->light_attenuation = j["light_attenuation"];
 
     light_element->update_instance_data();
     return light_element;
@@ -54,7 +54,7 @@ json EditorScene::DirectionalLightElement::into_json() const {
         {"visible",      visible},
         {"visual_scale", visual_scale},
         // Added for parameterisation of attenuation
-        {"light_attenuation", light->light_attenuation}
+        // {"light_attenuation", light->light_attenuation}
     };
 }
 
@@ -95,7 +95,7 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
 
     // Added for light attenuation
     // ImGui::Spacing();
-    transformUpdated |= ImGui::DragFloat3("Light Attenuation", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
+    // transformUpdated |= ImGui::DragFloat3("Light Attenuation", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
 
 
     if (transformUpdated) {

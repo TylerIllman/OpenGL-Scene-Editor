@@ -189,24 +189,24 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     total_ambient /= float(NUM_PL);
     #endif
 
-    // #if NUM_DL > 0
-    // for (int i = 0; i < NUM_DL; i++) {
-    //     directional_light_calculation(directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
-    // }
-    // #endif
-    //
-    // #if NUM_DL > 0
-    //   total_ambient /= float(NUM_DL);
-    // #endif
-
-    // Create a hard-coded directional light
-    DirectionalLightData hardcoded_light;
-    hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
-    hardcoded_light.color = vec3(0.0, 1.0, 1.0); // White light
+    #if NUM_DL > 0
+    for (int i = 0; i < NUM_DL; i++) {
+        directional_light_calculation(directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+    }
+    #endif
 
     #if NUM_DL > 0
-      directional_light_calculation(hardcoded_light, light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+      total_ambient /= float(NUM_DL);
     #endif
+
+    // Create a hard-coded directional light
+    // DirectionalLightData hardcoded_light;
+    // hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
+    // hardcoded_light.color = vec3(0.0, 1.0, 1.0); // White light
+
+    // #if NUM_DL > 0
+    //   directional_light_calculation(hardcoded_light, light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+    // #endif
 
     total_diffuse *= material.diffuse_tint;
     total_specular *= material.specular_tint;

@@ -83,8 +83,6 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
 void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLight>& directional_lights) {
     uint count = std::min(MAX_DL, (uint) directional_lights.size());
 
-    std::cout << "NUM dir lights: " << count << std::endl;
-
     for (uint i = 0; i < count; i++) {
         const DirectionalLight& directional_light = directional_lights[i];
 
@@ -97,7 +95,6 @@ void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLi
     }
 
     set_frag_define("NUM_DL", Formatter() << count);
-    // set_frag_define("NUM_DL", Formatter() << 10);
     directional_lights_ubo.bind(DIRECTIONAL_LIGHT_BINDING);
     directional_lights_ubo.upload();
 }

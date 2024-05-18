@@ -2,6 +2,12 @@
 
 #include <algorithm>
 
+
+// DELETE BELOW
+#include <iostream>  // Include for std::cout and std::endl
+#include <glm/vec3.hpp>  // Make sure glm::vec3 is included if not already
+
+
 std::vector<PointLight> LightScene::get_nearest_point_lights(glm::vec3 target, size_t max_count, size_t min_count) const {
     return get_nearest_lights(point_lights, target, max_count, min_count);
 }
