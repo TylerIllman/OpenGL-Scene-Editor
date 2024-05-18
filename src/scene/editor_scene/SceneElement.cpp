@@ -132,7 +132,7 @@ void EditorScene::LitMaterialComponent::add_material_imgui_edit_section(MasterRe
     material_changed |= ImGui::DragFloat("Ambient Tint", &material.ambient_tint[3], 0.01f, 0.0f, FLT_MAX);
     material_changed |= ImGui::DragFloat("Shininess", &material.shininess, 0.3f, 0.0f, FLT_MAX);
 
-    material_changed |= ImGui::SliderFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 10.0f, "%.2f");
+    material_changed |= ImGui::DragFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 0, FLT_MAX);
 
     ImGui::Spacing();
     if (material_changed) {
@@ -167,6 +167,10 @@ void EditorScene::EmissiveMaterialComponent::add_emissive_material_imgui_edit_se
     ImGui::Text("Emissive Material");
 
     // Add UI controls here
+    material_changed |= ImGui::ColorEdit3("Emission Tint", &material.emission_tint[0]);
+    material_changed |= ImGui::DragFloat("Emission Factor", &material.emission_tint[3], 0.01f, 0.0f, FLT_MAX);
+
+    material_changed |= ImGui::DragFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 0, FLT_MAX);
 
     ImGui::Spacing();
     if (material_changed) {
@@ -177,11 +181,18 @@ void EditorScene::EmissiveMaterialComponent::add_emissive_material_imgui_edit_se
 void EditorScene::EmissiveMaterialComponent::update_emissive_material_from_json(const json& json) {
     auto m = json["material"];
     material.emission_tint = m["emission_tint"];
+    // ADDED FOR TEXTURE SCALING
+    material.texture_scale = m["texture_scale"];
+
+
 }
 
 json EditorScene::EmissiveMaterialComponent::emissive_material_into_json() const {
     return {"material", {
         {"emission_tint", material.emission_tint},
+        // ADDED TO STORE TEXTURE SCALING
+       {"texture_scale", material.texture_scale}
+
     }};
 }
 

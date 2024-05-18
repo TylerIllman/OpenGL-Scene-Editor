@@ -11,7 +11,9 @@ std::unique_ptr<EditorScene::EmissiveEntityElement> EditorScene::EmissiveEntityE
         EmissiveEntityRenderer::InstanceData{
             glm::mat4{}, // Set via update_instance_data()
             EmissiveEntityRenderer::EmissiveEntityMaterial{
-                glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}
+                glm::vec4{1.0f, 1.0f, 1.0f, 1.0f},
+                {1.0f,1.0f} // Added default val for texture scaling
+
             }
         },
         EmissiveEntityRenderer::RenderData{
