@@ -44,6 +44,8 @@ struct PointLight {
 struct DirectionalLight {
     glm::vec3 direction{};
     glm::vec4 colour{};
+    float pitch;
+    float yaw;
 
     // Default constructor
     DirectionalLight() = default;
