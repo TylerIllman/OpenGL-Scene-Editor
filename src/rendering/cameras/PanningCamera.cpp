@@ -27,7 +27,7 @@ void PanningCamera::update(const Window& window, float dt, bool controls_enabled
             // Extract basis vectors from inverse view matrix to find world space directions of view space basis
             auto x_basis = glm::vec3{inverse_view_matrix[0]};
             auto y_basis = glm::vec3{inverse_view_matrix[1]};
-            auto z_basis = glm::vec3{inverse_view_matrix[2]}; // Forward vector
+
 
             auto pan = window.get_mouse_delta(GLFW_MOUSE_BUTTON_MIDDLE);
             focus_point += (x_basis * (float) -pan.x + y_basis * (float) pan.y) * PAN_SPEED * dt * distance / (float) window.get_window_height();

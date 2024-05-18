@@ -2,7 +2,9 @@
 
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/component_wise.hpp>
+#include <cmath>
 
+#include "utility/Math.h"
 #include "rendering/imgui/ImGuiManager.h"
 #include "scene/SceneContext.h"
 
@@ -34,7 +36,7 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
 std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLightElement::from_json(const SceneContext& scene_context, EditorScene::ElementRef parent, const json& j) {
     auto light_element = new_default(scene_context, parent);
 
-    // light_element->position = j["position"];
+    //light_element->position = j["position"];
     light_element->light->colour = j["colour"];
     light_element->visible = j["visible"];
     light_element->visual_scale = j["visual_scale"];
@@ -47,7 +49,7 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
 
 json EditorScene::DirectionalLightElement::into_json() const {
     return {
-        // {"position",     position},
+        //{"position",     position},
         {"colour",       light->colour},
         {"visible",      visible},
         {"visual_scale", visual_scale},
@@ -56,15 +58,27 @@ json EditorScene::DirectionalLightElement::into_json() const {
     };
 }
 
+
+
 void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderScene& render_scene, const SceneContext& scene_context) {
     ImGui::Text("Directional Light");
     SceneElement::add_imgui_edit_section(render_scene, scene_context);
 
     ImGui::Text("Local Transformation");
     bool transformUpdated = false;
-    // transformUpdated |= ImGui::DragFloat3("Translation", &position[0], 0.01f);
+    //transformUpdated |= ImGui::DragFloat3("Translation", &position[0], 0.01f);
     ImGui::DragDisableCursor(scene_context.window);
     ImGui::Spacing();
+
+    float pitch_degrees = glm::degrees(pitch);
+    ImGui::SliderFloat("Pitch", &pitch_degrees, -89.99f, 89.99f);
+    pitch = glm::radians(pitch_degrees);
+
+    float yaw_degrees = glm::degrees(yaw);
+    ImGui::DragFloat("Yaw", &yaw_degrees);
+    ImGui::DragDisableCursor(scene_context.window);
+    yaw = glm::radians(glm::mod(yaw_degrees, 360.0f));
+
 
     ImGui::Text("Light Properties");
     transformUpdated |= ImGui::ColorEdit3("Colour", &light->colour[0]);
@@ -93,6 +107,8 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
   //trans based on dir moves in world
   // CHANGE POSITION
     // transform = glm::translate(direction);
+    yaw = std::fmod(yaw + YAW_PERIOD, YAW_PERIOD);
+    pitch = clamp(pitch, PITCH_MIN, PITCH_MAX);
 
     if (!EditorScene::is_null(parent)) {
         // Post multiply by transform so that local transformations are applied first
