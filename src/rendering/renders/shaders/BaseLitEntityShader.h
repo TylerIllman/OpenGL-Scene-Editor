@@ -47,6 +47,7 @@ using BaseLitEntityGlobalData = BaseEntityGlobalData;
 class BaseLitEntityShader : public BaseEntityShader {
 public:
     static constexpr uint MAX_PL = 16;
+    static constexpr uint MAX_DL = 16;
 
 protected:
     // Material
@@ -64,7 +65,7 @@ protected:
     UniformBufferArray<PointLight::Data, MAX_PL> point_lights_ubo;
 
     //ADDED
-    UniformBufferArray<DirectionalLight::Data, MAX_PL> directional_lights_ubo;
+    UniformBufferArray<DirectionalLight::Data, MAX_DL> directional_lights_ubo;
 public:
     BaseLitEntityShader(std::string name, const std::string& vertex_path, const std::string& fragment_path,
                         std::unordered_map<std::string, std::string> vert_defines = {},

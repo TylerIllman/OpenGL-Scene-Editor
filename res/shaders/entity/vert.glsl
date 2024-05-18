@@ -39,16 +39,6 @@ void main() {
     vertex_out.ws_normal = normalize(normal_matrix * normal);
     vertex_out.texture_coordinate = texture_coordinate;
 
-    gl_Position = projection_view_matrix * vec4(vertex_out.ws_position, 1.0f);
 
-    // Per vertex lighting
-    // vec3 ws_view_dir = normalize(ws_view_position - ws_position);
-    // LightCalculatioData light_calculation_data = LightCalculatioData(ws_position, ws_view_dir, ws_normal);
-    // Material material = Material(diffuse_tint, specular_tint, ambient_tint, shininess);
-    //
-    // vertex_out.lighting_result = total_light_calculation(light_calculation_data, material
-    //     #if NUM_PL > 0
-    //     ,point_lights
-    //     #endif
-    // );
+    gl_Position = projection_view_matrix * vec4(vertex_out.ws_position, 1.0f);
 }

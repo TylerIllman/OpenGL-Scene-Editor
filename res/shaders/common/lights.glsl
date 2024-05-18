@@ -75,7 +75,7 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 }
 
 
-// // ADDED function to calculate directional light 
+// // ADDED function to calculate directional light
 // void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
 //     vec3 light_dir = normalize(-directional_light.direction);
 //     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0);
@@ -89,7 +89,7 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 //     vec3 view_dir = normalize(calc_data.ws_view_dir);
 //     vec3 halfway_dir = normalize(light_dir + view_dir);
 //     float spec = pow(max(dot(calc_data.ws_normal, halfway_dir), 0.0), calc_data.shininess);
-//     vec3 specular = spec * directional_light.color 
+//     vec3 specular = spec * directional_light.color
 //     vec3 specular = spec * directional_light.color * directional_light.intensity;
 //
 //     total_diffuse += diffuse;
@@ -108,6 +108,9 @@ void directional_light_calculation(DirectionalLightData directional_light, Light
     vec3 light_color = directional_light.color; // Use the actual light color
 
     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0); // Calculate the diffuse strength based on angle between light and normal
+
+    //pitch direction
+
 
     // Calculate diffuse lighting
     vec3 diffuse = diff * light_color; // Lambert's cosine law for diffuse lighting
@@ -190,17 +193,17 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     total_ambient /= float(NUM_PL);
     #endif
 
-    // #if NUM_DL > 0
-    // for (int i = 0; i < NUM_DL; i++) {
-    //     directional_light_calculation(directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
-    // }
-    // #endif
-    //
-    // #if NUM_DL > 0
-    // total_ambient /= float(NUM_DL);
-    // #endif
+     #if NUM_DL > 0
+     for (int i = 0; i < NUM_DL; i++) {
+         directional_light_calculation(directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+     }
+     #endif
 
-    // Create a hard-coded directional light
+     #if NUM_DL > 0
+     total_ambient /= float(NUM_DL);
+     #endif
+
+    //Create a hard-coded directional light
     //DirectionalLightData hardcoded_light;
     //hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
     //hardcoded_light.color = vec3(1.0, 1.0, 1.0); // White light

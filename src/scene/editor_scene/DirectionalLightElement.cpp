@@ -2,7 +2,6 @@
 
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/component_wise.hpp>
-#include <cmath>
 
 #include "utility/Math.h"
 #include "rendering/imgui/ImGuiManager.h"
@@ -16,7 +15,7 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
         DirectionalLight::create(glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
 
         EmissiveEntityRenderer::Entity::create(
-            scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("sphere.obj"),
+            scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("cylinder.obj"),
             EmissiveEntityRenderer::InstanceData{
                 glm::mat4{}, // Set via update_instance_data()
                 EmissiveEntityRenderer::EmissiveEntityMaterial{

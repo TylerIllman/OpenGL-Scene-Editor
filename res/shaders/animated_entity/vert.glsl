@@ -10,8 +10,11 @@ layout(location = 3) in vec4 bone_weights;
 layout(location = 4) in uvec4 bone_indices;
 
 out VertexOut {
-    LightingResult lighting_result;
+    //LightingResult lighting_result;
     vec2 texture_coordinate;
+    vec3 ws_position;
+    vec3 ws_normal;
+
 } vertex_out;
 
 // Per instance data
@@ -54,19 +57,12 @@ void main() {
     mat3 normal_matrix = cofactor(animation_matrix);
 
     vec3 ws_position = (animation_matrix * vec4(vertex_position, 1.0f)).xyz;
+    vertex_out.ws_position = ws_position;
     vec3 ws_normal = normalize(normal_matrix * normal);
+    vertex_out.ws_normal = ws_normal;
     vertex_out.texture_coordinate = texture_coordinate;
 
     gl_Position = projection_view_matrix * vec4(ws_position, 1.0f);
 
-    // Per vertex light calcs are below this point
-    vec3 ws_view_dir = normalize(ws_view_position - ws_position);
-    LightCalculatioData light_calculation_data = LightCalculatioData(ws_position, ws_view_dir, ws_normal);
-    Material material = Material(diffuse_tint, specular_tint, ambient_tint, shininess);
 
-    vertex_out.lighting_result = total_light_calculation(light_calculation_data, material
-        #if NUM_PL > 0
-        ,point_lights
-        #endif
-    );
 }

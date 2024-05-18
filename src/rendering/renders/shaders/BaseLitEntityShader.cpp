@@ -76,7 +76,7 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
 
 
 void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLight>& directional_lights) {
-    uint count = std::min(MAX_PL, (uint) directional_lights.size());
+    uint count = std::min(MAX_DL, (uint) directional_lights.size());
 
     for (uint i = 0; i < count; i++) {
         const DirectionalLight& directional_light = directional_lights[i];

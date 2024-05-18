@@ -12,11 +12,17 @@ uniform vec3 emissive_tint;
 
 // Global Data
 uniform float inverse_gamma;
+uniform vec2 texture_scale;
 
 uniform sampler2D emissive_texture;
 
 void main() {
-    vec3 texture_colour = texture(emissive_texture, frag_in.texture_coordinate).rgb;
+
+    // Scaled texture coords
+    vec2 scaled_coords = frag_in.texture_coordinate * texture_scale;
+    //vec2 scaled_coords = frag_in.texture_coordinate * vec2(10.0f, 10.0);
+
+    vec3 texture_colour = texture(emissive_texture, scaled_coords).rgb;
     vec3 emissive_colour = emissive_tint * texture_colour;
 
     out_colour = vec4(emissive_colour, 1.0f);
