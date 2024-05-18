@@ -6,6 +6,7 @@
 #define NUM_DL 0
 #endif
 
+
 // Material Properties
 struct Material {
     vec3 diffuse_tint;
@@ -195,7 +196,9 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
     hardcoded_light.color = vec3(1.0, 1.0, 1.0); // White light
 
+    // #if NUM_DL > 0
     directional_light_calculation(hardcoded_light, light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+    // #endif
 
     total_diffuse *= material.diffuse_tint;
     total_specular *= material.specular_tint;

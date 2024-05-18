@@ -90,7 +90,8 @@ void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLi
     }
 
     // CHANGED THIS
-    set_frag_define("NUM_DL", Formatter() << count);
+    // set_frag_define("NUM_DL", Formatter() << count);
+    set_frag_define("NUM_DL", Formatter() << 10);
     directional_lights_ubo.bind(DIRECTIONAL_LIGHT_BINDING);
     directional_lights_ubo.upload();
 }
