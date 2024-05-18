@@ -33,3 +33,5 @@ Baselitentityshader.cpp: added line in setpoints to update attenuation params
 - Lights.glsl added struct to store diractional light data,
 - lights.cpp added vector to store all directional lights
 - Basellitentity shader h and cpp
+
+QUESTION: should the pitch yaw calcs be done in shader (DirectionalLightElement.h)

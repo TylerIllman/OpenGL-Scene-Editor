@@ -15,6 +15,8 @@ namespace EditorScene {
         const float YAW_SPEED = 0.01f;
         const float PITCH_SPEED = 0.01f;
 
+        // QUESTION
+        // NOTE: Should this calc be done in the shader
         const float YAW_PERIOD = 2.0f * (float) M_PI;
         const float PITCH_MIN = (float) -M_PI_2 + 0.01f;
         const float PITCH_MAX = (float) M_PI_2 - 0.01f;

@@ -29,6 +29,9 @@ void BaseLitEntityShader::get_uniforms_set_bindings() {
     // Uniform block bindings
     set_block_binding("PointLightArray", POINT_LIGHT_BINDING);
 
+    // ADDED binding for directional light array
+    set_block_binding("DirectionalLightArray", DIRECTIONAL_LIGHT_BINDING);
+
 
 }
 
@@ -55,6 +58,8 @@ void BaseLitEntityShader::set_instance_data(const BaseLitEntityInstanceData& ins
 
 void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_lights) {
     uint count = std::min(MAX_PL, (uint) point_lights.size());
+    
+    // std::cout << "NUM point lights: " << count << std::endl;
 
     for (uint i = 0; i < count; i++) {
         const PointLight& point_light = point_lights[i];
@@ -67,7 +72,7 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
         point_lights_ubo.data[i].light_attenuation = point_light.light_attenuation;
     }
 
-    // CHANGE THIS
+    // CHANGED THIS to set frag define
     set_frag_define("NUM_PL", Formatter() << count);
     point_lights_ubo.bind(POINT_LIGHT_BINDING);
     point_lights_ubo.upload();
@@ -76,7 +81,9 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
 
 
 void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLight>& directional_lights) {
-    uint count = std::min(MAX_PL, (uint) directional_lights.size());
+    uint count = std::min(MAX_DL, (uint) directional_lights.size());
+
+    std::cout << "NUM dir lights: " << count << std::endl;
 
     for (uint i = 0; i < count; i++) {
         const DirectionalLight& directional_light = directional_lights[i];
@@ -89,9 +96,8 @@ void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLi
         // directional_lights_ubo.data[i].light_attenuation = directional_light.light_attenuation;
     }
 
-    // CHANGED THIS
-    // set_frag_define("NUM_DL", Formatter() << count);
-    set_frag_define("NUM_DL", Formatter() << 10);
+    set_frag_define("NUM_DL", Formatter() << count);
+    // set_frag_define("NUM_DL", Formatter() << 10);
     directional_lights_ubo.bind(DIRECTIONAL_LIGHT_BINDING);
     directional_lights_ubo.upload();
 }
