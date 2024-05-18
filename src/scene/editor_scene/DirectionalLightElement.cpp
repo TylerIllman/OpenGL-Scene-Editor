@@ -10,8 +10,8 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     auto light_element = std::make_unique<DirectionalLightElement>(
         parent,
         "New Directional Light",
-        glm::vec3{0.0f, 1.0f, 0.0f}, // Correct direction vector
-        DirectionalLight::create(glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
+        glm::vec3{0.0f, 1.0f, 0.0f},
+        DirectionalLight::create(glm::vec3{0.0f, 0.5f, 0.5f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
 
         EmissiveEntityRenderer::Entity::create(
             scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("sphere.obj"),
@@ -41,6 +41,9 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     // Added for attenuation
     // light_element->light->light_attenuation = j["light_attenuation"];
 
+    light_element->light->pitch = j["pitch"];
+    light_element->light->pitch = j["yaw"];
+
     light_element->update_instance_data();
     return light_element;
 }
@@ -51,6 +54,8 @@ json EditorScene::DirectionalLightElement::into_json() const {
         {"colour",       light->colour},
         {"visible",      visible},
         {"visual_scale", visual_scale},
+        {"pitch", pitch},
+        {"yaw", yaw},
         // Added for parameterisation of attenuation
         // {"light_attenuation", light->light_attenuation}
     };
@@ -64,6 +69,11 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
     bool transformUpdated = false;
     // transformUpdated |= ImGui::DragFloat3("Translation", &position[0], 0.01f);
     ImGui::DragDisableCursor(scene_context.window);
+    ImGui::Spacing();
+
+
+
+
     ImGui::Spacing();
 
     ImGui::Text("Light Properties");
