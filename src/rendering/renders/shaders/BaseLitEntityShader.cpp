@@ -89,19 +89,19 @@ void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLi
         glm::vec3 scaled_colour = glm::vec3(directional_light.colour) * directional_light.colour.a;
 
         // Convert pitch and yaw from degrees to radians for rotation
-        float pitch_rad = glm::radians(directional_light.pitch);
-        float yaw_rad = glm::radians(directional_light.yaw);
-
-        // Create rotation matrices
-        glm::mat4 pitch_mat = glm::rotate(glm::mat4(1.0f), pitch_rad, glm::vec3(0, 0, 1));  // X-axis rotation
-        glm::mat4 yaw_mat = glm::rotate(glm::mat4(1.0f), yaw_rad, glm::vec3(0, 1, 0));    // Y-axis rotation
-
-        // Apply rotations
-        glm::vec4 dir_vec4 = glm::vec4(directional_light.direction, 1.0);  // Convert to vec4 for matrix multiplication
-        dir_vec4 = yaw_mat * pitch_mat * dir_vec4;  // Apply yaw first then pitch
+        // float pitch_rad = glm::radians(directional_light.pitch);
+        // float yaw_rad = glm::radians(directional_light.yaw);
+        //
+        // // Create rotation matrices
+        // glm::mat4 pitch_mat = glm::rotate(glm::mat4(1.0f), pitch_rad, glm::vec3(0, 0, 1));  // X-axis rotation
+        // glm::mat4 yaw_mat = glm::rotate(glm::mat4(1.0f), yaw_rad, glm::vec3(0, 1, 0));    // Y-axis rotation
+        //
+        // // Apply rotations
+        // glm::vec4 dir_vec4 = glm::vec4(directional_light.direction, 1.0);  // Convert to vec4 for matrix multiplication
+        // dir_vec4 = yaw_mat * pitch_mat * dir_vec4;  // Apply yaw first then pitch
 
         // Update the directional vector in the uniform buffer object
-        directional_lights_ubo.data[i].direction = glm::vec3(dir_vec4);
+        directional_lights_ubo.data[i].direction = glm::vec3(directional_light.direction);
         directional_lights_ubo.data[i].colour = scaled_colour;
 
         // ADDED below line for light attenuation
