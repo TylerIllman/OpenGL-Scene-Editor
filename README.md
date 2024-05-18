@@ -24,8 +24,12 @@ Baselitentityshader.cpp: added line in setpoints to update attenuation params
 # Part H: Directional Light Source
 
 - In Lights.h duplicated the representation of point light struct and created a new Directional struct. Also edited the LightScene struct store a list of the directional lights
+<!-- - Lights.cpp -->
 - Added DirectionalLightElement.h to entity_scene dir
 - Added DirectionalLightElement.cpp to entity_scene dir
-- MasterRenderScene.h
+- MasterRenderScene.h added insert and remove functions to Directional Lights
 - CMakeLists.txt added the diractional light files to the build
 - MasterRenderScene added funcs to remove and insert directional
+- Lights.glsl added struct to store diractional light data,
+- lights.cpp added vector to store all directional lights
+- Basellitentity shader h and cpp

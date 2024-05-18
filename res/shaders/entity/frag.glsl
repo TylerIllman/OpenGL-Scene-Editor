@@ -25,7 +25,7 @@ uniform mat4 projection_view_matrix;
 uniform vec2 texture_scale;
 
 uniform sampler2D diffuse_texture;
-uniform sampler2D specular_map_texture;
+uniform sampler2D specular_map_texture; 
 
 // Light Data
 #if NUM_PL > 0
@@ -34,9 +34,13 @@ layout (std140) uniform PointLightArray {
 };
 #endif
 
+#if NUM_DL > 0
+layout (std140) uniform DirectionalLightArray {
+   DirectionalLightData  directional_lights[NUM_DL];
+};
+#endif
+
 void main() {
-
-
 
     // Scaled texture coords
     vec2 scaled_coords = frag_in.texture_coordinate * texture_scale;
@@ -50,6 +54,9 @@ void main() {
     LightingResult lighting_result = total_light_calculation(light_calculation_data, material
         #if NUM_PL > 0
         ,point_lights
+        #endif
+        #if NUM_DL > 0
+        ,directional_lights
         #endif
     );
 
