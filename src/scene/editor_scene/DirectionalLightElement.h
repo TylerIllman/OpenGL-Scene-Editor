@@ -6,20 +6,6 @@
 
 namespace EditorScene {
     class DirectionalLightElement : public SceneElement {
-        float init_pitch = 0.0f;
-        float init_yaw = 0.0f;
-
-        float pitch;
-        float yaw;
-
-        const float YAW_SPEED = 0.01f;
-        const float PITCH_SPEED = 0.01f;
-
-        // QUESTION
-        // NOTE: Should this calc be done in the shader
-        const float YAW_PERIOD = 2.0f * (float) M_PI;
-        const float PITCH_MIN = (float) -M_PI_2 + 0.01f;
-        const float PITCH_MAX = (float) M_PI_2 - 0.01f;
 
     public:
         static constexpr const char* ELEMENT_TYPE_NAME = "Directional Light";

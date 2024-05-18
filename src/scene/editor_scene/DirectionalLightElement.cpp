@@ -10,8 +10,8 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     auto light_element = std::make_unique<DirectionalLightElement>(
         parent,
         "New Directional Light",
-        glm::vec3{1.0f, 1.0f, 0.0f}, // Correct direction vector
-        DirectionalLight::create(glm::vec3{0.5f, 0.3f, 0.0f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
+        glm::vec3{0.0f, 0.5f, 0.0f}, // Correct direction vector
+        DirectionalLight::create(glm::vec3{0.0f, 0.5f, 0.0f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
 
         EmissiveEntityRenderer::Entity::create(
             scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("cylinder.obj"),
@@ -54,8 +54,8 @@ json EditorScene::DirectionalLightElement::into_json() const {
         {"colour",       light->colour},
         {"visible",      visible},
         {"visual_scale", visual_scale},
-        {"pitch", pitch},
-        {"yaw", yaw},
+        {"pitch", light->pitch},
+        {"yaw", light->yaw},
         // Added for parameterisation of attenuation
         // {"light_attenuation", light->light_attenuation}
     };
@@ -93,7 +93,12 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
     // ImGui::Spacing();
     // transformUpdated |= ImGui::DragFloat3("Light Attenuation", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
 
+    // float pitch_degrees = glm::degrees(pitch);
+    ImGui::SliderFloat("Pitch", &light->pitch, -89.99f, 89.99f);
 
+    // float yaw_degrees = glm::degrees(yaw);
+    ImGui::DragFloat("Yaw", &light->yaw);
+  
     if (transformUpdated) {
         update_instance_data();
     }
