@@ -21,7 +21,6 @@ uniform vec3 ws_view_position;
 uniform mat4 projection_view_matrix;
 
 // ADDED BELOW LINE
-// test uniform scale
 uniform vec2 texture_scale;
 
 uniform sampler2D diffuse_texture;

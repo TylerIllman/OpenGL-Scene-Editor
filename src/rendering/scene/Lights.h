@@ -44,6 +44,8 @@ struct PointLight {
 struct DirectionalLight {
     glm::vec3 direction{};
     glm::vec4 colour{};
+    float pitch;
+    float yaw;
 
     // Default constructor
     DirectionalLight() = default;
@@ -60,7 +62,7 @@ struct DirectionalLight {
         return DirectionalLight(glm::vec3{}, glm::vec4{});
     }
 
-    glm::vec3 light_attenuation{1.0f, 0.0f, 0.25f};
+    // glm::vec3 light_attenuation{1.0f, 0.0f, 0.25f};
 
     struct Data {
         alignas(16) glm::vec3 direction;
@@ -95,7 +97,7 @@ struct LightScene {
     std::vector<PointLight> get_nearest_point_lights(glm::vec3 target, size_t max_count, size_t min_count = 0) const;
 
     // ADDED to allow for directional lights
-    std::vector<DirectionalLight> get_nearest_directional_lights(glm::vec3 target, size_t max_count, size_t min_count = 0) const;
+    std::vector<DirectionalLight> get_directional_lights() const;
 
 
 private:

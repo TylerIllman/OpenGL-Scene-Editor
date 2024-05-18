@@ -2,14 +2,32 @@
 
 #include <algorithm>
 
+
+// DELETE BELOW
+#include <iostream>  // Include for std::cout and std::endl
+#include <glm/vec3.hpp>  // Make sure glm::vec3 is included if not already
+
+
 std::vector<PointLight> LightScene::get_nearest_point_lights(glm::vec3 target, size_t max_count, size_t min_count) const {
     return get_nearest_lights(point_lights, target, max_count, min_count);
 }
 
 // ADDED for directional lights
-// std::vector<DirectionalLight> LightScene::get_nearest_directional_lights(glm::vec3 target, size_t max_count, size_t min_count) const {
-//     return get_nearest_lights(directional_lights, target, max_count, min_count);
+// std::vector<DirectionalLight> LightScene::get_directional_lights() const {
+//   return directional_lights;
 // }
+
+// ADDED for directional lights
+std::vector<DirectionalLight> LightScene::get_directional_lights() const {
+    std::vector<DirectionalLight> active_directional_lights;
+    for (const auto& light : directional_lights) {
+        // if (light->is_active()) {  // Assuming there is an isActive() method to check the light's state
+        active_directional_lights.push_back(*light);
+        // }
+    }
+    return active_directional_lights;
+}
+
 
 template<typename Light>
 std::vector<Light> LightScene::get_nearest_lights(const std::unordered_set<std::shared_ptr<Light>>& lights, glm::vec3 target, size_t max_count, size_t min_count) {

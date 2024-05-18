@@ -31,11 +31,12 @@ struct PointLightData {
     vec3 light_attenuation;
 };
 
-// // ADDED for directional lights
+// ADDED for directional lights
 struct DirectionalLightData {
     vec3 direction;
     vec3 color;
-    // float intensity;
+    // float pitch;
+    // float yaw;
 };
 
 
@@ -75,42 +76,18 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 }
 
 
-// // ADDED function to calculate directional light
-// void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
-//     vec3 light_dir = normalize(-directional_light.direction);
-//     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0);
-//
-//     // Diffuse component
-//     // vec3 diffuse = diff * directional_light.color * directional_light.intensity;
-//     vec3 diffuse = diff * directional_light.color;
-//
-//
-//     // Specular component (simple Blinn-Phong model)
-//     vec3 view_dir = normalize(calc_data.ws_view_dir);
-//     vec3 halfway_dir = normalize(light_dir + view_dir);
-//     float spec = pow(max(dot(calc_data.ws_normal, halfway_dir), 0.0), calc_data.shininess);
-//     vec3 specular = spec * directional_light.color
-//     vec3 specular = spec * directional_light.color * directional_light.intensity;
-//
-//     total_diffuse += diffuse;
-//     total_specular += specular;
-//     total_ambient += directional_light.color;
-// }
-
-
-
-
-
-
 void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
     // Use the actual direction and color from the directional light data
-    vec3 light_dir = normalize(-directional_light.direction); // Ensure the direction is normalized and correct
+    vec3 light_dir = normalize(directional_light.direction); // Ensure the direction is normalized and correct
     vec3 light_color = directional_light.color; // Use the actual light color
 
+    // Apply yaw rotation around the up axis (y-axis)
+    // direction = glm::rotate(direction, glm::degrees(directional_light.yaw), vec3(0.0f, 1.0f, 0.0f));
+
+    // Apply pitch rotation around the right axis (x-axis)
+    // direction = glm::rotate(direction, glm::degrees(directional_light.pitch), vec3(1.0f, 0.0f, 0.0f));
+
     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0); // Calculate the diffuse strength based on angle between light and normal
-
-    //pitch direction
-
 
     // Calculate diffuse lighting
     vec3 diffuse = diff * light_color; // Lambert's cosine law for diffuse lighting
@@ -133,14 +110,13 @@ void directional_light_calculation(DirectionalLightData directional_light, Light
 
 
 
-
-
-//
 // Function to calculate directional light
 // void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
 //  // Hard code the light direction and color
 //     vec3 light_dir = normalize(vec3(-1.0, -1.0, -1.0)); // Direction simulating the light coming from above and to the sides
 //     vec3 light_color = vec3(1.0, 1.0, 1.0); // White light
+
+
 //
 //     // Diffuse lighting calculation
 //     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0); // Calculate the cosine of the angle between the normal and the light vector
@@ -193,23 +169,23 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     total_ambient /= float(NUM_PL);
     #endif
 
-     #if NUM_DL > 0
-     for (int i = 0; i < NUM_DL; i++) {
-         directional_light_calculation(directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
-     }
-     #endif
+    #if NUM_DL > 0
+    for (int i = 0; i < NUM_DL; i++) {
+        directional_light_calculation(directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+    }
+    #endif
 
-     #if NUM_DL > 0
-     total_ambient /= float(NUM_DL);
-     #endif
+    #if NUM_DL > 0
+      total_ambient /= float(NUM_DL);
+    #endif
 
-    //Create a hard-coded directional light
-    //DirectionalLightData hardcoded_light;
-    //hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
-    //hardcoded_light.color = vec3(1.0, 1.0, 1.0); // White light
+    // Create a hard-coded directional light
+    // DirectionalLightData hardcoded_light;
+    // hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
+    // hardcoded_light.color = vec3(0.0, 1.0, 1.0); // White light
 
     // #if NUM_DL > 0
-    //directional_light_calculation(hardcoded_light, light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+    //   directional_light_calculation(hardcoded_light, light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
     // #endif
 
     total_diffuse *= material.diffuse_tint;
