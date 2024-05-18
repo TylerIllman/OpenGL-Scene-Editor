@@ -107,7 +107,10 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
 void EditorScene::DirectionalLightElement::update_instance_data() {
   //trans based on dir moves in world
   // CHANGE POSITION
-    // transform = glm::translate(direction);
+    transform = glm::translate(light->direction);
+
+    std::cout << "direction: " << light->direction.x << std::endl;
+
 
     if (!EditorScene::is_null(parent)) {
         // Post multiply by transform so that local transformations are applied first

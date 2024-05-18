@@ -35,3 +35,5 @@ Baselitentityshader.cpp: added line in setpoints to update attenuation params
 - Basellitentity shader h and cpp
 
 QUESTION: should the pitch yaw calcs be done in shader ()
+
+# Base lit entity shader dir ligh pitch yaw calcs need to move to directional light el cpp update instance data
