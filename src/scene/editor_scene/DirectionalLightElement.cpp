@@ -115,6 +115,11 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
     std::cout << "Current Direction: " << light->direction.x << ", " 
               << light->direction.y << ", " << light->direction.z << std::endl;
 
+
+  // Log current direction for debugging
+    std::cout << "Current Direction: " << light->direction.x << ", " 
+              << light->direction.y << ", " << light->direction.z << std::endl;
+
     // Convert pitch and yaw from degrees to radians
     float pitch_rad = glm::radians(light->pitch);
     float yaw_rad = glm::radians(light->yaw);
@@ -158,6 +163,31 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
     // Update the directional vector in the uniform buffer object
     // directional_lights_ubo.data[i].direction = glm::vec3(dir_vec4);
     // directional_lights_ubo.data[i].colour = scaled_colour;
+    // Log new direction for debugging
+    std::cout << "New Direction: " << light->direction.x << ", " 
+              << light->direction.y << ", " << light->direction.z << std::endl;
+
+    transform = glm::translate(glm::vec3(dir_vec4));
+    // 
+    // // Convert pitch and yaw from degrees to radians for rotation
+    // float pitch_rad = glm::radians(light->pitch);
+    // float yaw_rad = glm::radians(light->yaw);
+    //
+    // // Create rotation matrices
+    // glm::mat4 pitch_mat = glm::rotate(glm::mat4(1.0f), pitch_rad, glm::vec3(1, 0, 0));  // X-axis rotation
+    // glm::mat4 yaw_mat = glm::rotate(glm::mat4(1.0f), yaw_rad, glm::vec3(0, 1, 0));    // Y-axis rotation
+    // 
+    // // // Apply rotations
+    // glm::vec4 dir_vec4 = glm::vec4(light->direction, 1.0);  // Convert to vec4 for matrix multiplication
+    // dir_vec4 = yaw_mat * pitch_mat * dir_vec4;  // Apply yaw first then pitch
+    //
+    // light->direction = glm::vec3(dir_vec4);
+    //
+    // transform = glm::translate(light->direction);
+    // Update the directional vector in the uniform buffer object
+    // directional_lights_ubo.data[i].direction = glm::vec3(dir_vec4);
+    // directional_lights_ubo.data[i].colour = scaled_colour;
+    transform = combined_rotation;
     // Log new direction for debugging
     std::cout << "New Direction: " << light->direction.x << ", " 
               << light->direction.y << ", " << light->direction.z << std::endl;
