@@ -10,8 +10,8 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     auto light_element = std::make_unique<DirectionalLightElement>(
         parent,
         "New Directional Light",
-        glm::vec3{0.0f, 1.0f, 0.0f}, // Correct direction vector
-        DirectionalLight::create(glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
+        glm::vec3{10.0f, 10.0f, 0.0f}, // Correct direction vector
+        DirectionalLight::create(glm::vec3{10.0f, 10.0f, 0.0f}, glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}), // This should correctly create a DirectionalLight
 
         EmissiveEntityRenderer::Entity::create(
             scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("cylinder.obj"),
@@ -91,7 +91,7 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
     // transformUpdated |= ImGui::DragFloat3("Light Attenuation", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
 
     // float pitch_degrees = glm::degrees(pitch);
-    transformUpdated |= ImGui::SliderFloat("Pitch", &light->pitch, -89.99f, 89.99f);
+    transformUpdated |= ImGui::SliderFloat("Pitch", &light->pitch, -90.0f, 90.0f);
 
     // float yaw_degrees = glm::degrees(yaw);
     transformUpdated |= ImGui::DragFloat("Yaw", &light->yaw);
@@ -105,11 +105,6 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
   //trans based on dir moves in world
   // CHANGE POSITION
 
-
-  // Log current direction for debugging
-    std::cout << "Current Direction: " << light->direction.x << ", " 
-              << light->direction.y << ", " << light->direction.z << std::endl;
-
     // Convert pitch and yaw from degrees to radians
     float pitch_rad = glm::radians(light->pitch);
     float yaw_rad = glm::radians(light->yaw);
@@ -117,50 +112,28 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
     // Create rotation matrices for pitch and yaw
     glm::mat4 pitch_mat = glm::rotate(glm::mat4(1.0f), pitch_rad, glm::vec3(1, 0, 0));  // Rotate around X-axis
     glm::mat4 yaw_mat = glm::rotate(glm::mat4(1.0f), yaw_rad, glm::vec3(0, 1, 0));      // Rotate around Y-axis
-    // glm::mat4 pitch_mat = glm::rotate(glm::mat4(1.0f), light->pitch, glm::vec3(1, 0, 0));  // Rotate around X-axis
-    // glm::mat4 yaw_mat = glm::rotate(glm::mat4(1.0f), light->yaw, glm::vec3(0, 1, 0));      // Rotate around Y-axis
 
     // Combine the rotations, applying yaw first, then pitch
     glm::mat4 combined_rotation = yaw_mat * pitch_mat;
 
     // Apply the combined rotation to the light's direction vector
-    glm::vec4 dir_vec4 = glm::vec4(light->direction, 1.0);  // Convert to vec4 for matrix multiplication
-    dir_vec4 = combined_rotation * glm::vec4{0.0f,1.0f,0.0f,1.0f};                // Apply combined rotation
+    //glm::vec4 dir_vec4 = glm::vec4(light->direction, 1.0);  // Convert to vec4 for matrix multiplication
+    glm::vec4 dir_vec4 = combined_rotation * glm::vec4{0.0f,7.0f,0.0f,1.0f};                // Apply combined rotation
     // dir_vec4 = combined_rotation * light->direction;                // Apply combined rotation
 
     // Update the light's direction with the new rotated direction
     light->direction = glm::vec3(dir_vec4);
 
-    // Log new direction for debugging
-    std::cout << "New Direction: " << light->direction.x << ", " 
-              << light->direction.y << ", " << light->direction.z << std::endl;
-
-    transform = glm::translate(glm::vec3(dir_vec4));
-    // 
-    // // Convert pitch and yaw from degrees to radians for rotation
-    // float pitch_rad = glm::radians(light->pitch);
-    // float yaw_rad = glm::radians(light->yaw);
-    //
-    // // Create rotation matrices
-    // glm::mat4 pitch_mat = glm::rotate(glm::mat4(1.0f), pitch_rad, glm::vec3(1, 0, 0));  // X-axis rotation
-    // glm::mat4 yaw_mat = glm::rotate(glm::mat4(1.0f), yaw_rad, glm::vec3(0, 1, 0));    // Y-axis rotation
-    // 
-    // // // Apply rotations
-    // glm::vec4 dir_vec4 = glm::vec4(light->direction, 1.0);  // Convert to vec4 for matrix multiplication
-    // dir_vec4 = yaw_mat * pitch_mat * dir_vec4;  // Apply yaw first then pitch
-    //
-    // light->direction = glm::vec3(dir_vec4);
-    //
-    // transform = glm::translate(light->direction);
-    // Update the directional vector in the uniform buffer object
-    // directional_lights_ubo.data[i].direction = glm::vec3(dir_vec4);
-    // directional_lights_ubo.data[i].colour = scaled_colour;
+    transform = combined_rotation;
 
 
     if (!EditorScene::is_null(parent)) {
         // Post multiply by transform so that local transformations are applied first
         transform = (*parent)->transform * transform;
     }
+
+    // Set the position (translation) part of the transform matrix
+    transform[3] = glm::vec4(light->direction, 1.0f);
 
      //light->position = glm::vec3(transform[3]); // Extract translation from matrix
     if (visible) {
