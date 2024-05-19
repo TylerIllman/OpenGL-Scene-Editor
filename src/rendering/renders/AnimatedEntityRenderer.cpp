@@ -38,9 +38,9 @@ void AnimatedEntityRenderer::AnimatedEntityRenderer::render(const RenderScene& r
         shader.set_point_lights(light_scene.get_nearest_point_lights(position, BaseLitEntityShader::MAX_PL, 1));
 
 
-
         // Added below for directional light
         shader.set_directional_lights(light_scene.get_directional_lights());
+
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, entity->render_data.diffuse_texture->get_texture_id());

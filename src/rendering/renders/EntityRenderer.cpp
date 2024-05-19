@@ -46,11 +46,6 @@ void EntityRenderer::EntityRenderer::render(const RenderScene& render_scene, con
         shader.set_point_lights(light_scene.get_nearest_point_lights(position, BaseLitEntityShader::MAX_PL, 1));
         
         // ADDED below for directional light
-        
-        // glm::vec3 direction = entity->instance_data.model_matrix[1];
-        //
-        // std::cout << "entity: " << entity << std::endl;
-
         shader.set_directional_lights(light_scene.get_directional_lights());
 
         glActiveTexture(GL_TEXTURE0);

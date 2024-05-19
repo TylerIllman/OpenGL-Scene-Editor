@@ -107,8 +107,8 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
 
 
   // Log current direction for debugging
-    std::cout << "Current Direction: " << light->direction.x << ", " 
-              << light->direction.y << ", " << light->direction.z << std::endl;
+    // std::cout << "Current Direction: " << light->direction.x << ", " 
+    //           << light->direction.y << ", " << light->direction.z << std::endl;
 
     // Convert pitch and yaw from degrees to radians
     float pitch_rad = glm::radians(light->pitch);
@@ -132,8 +132,8 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
     light->direction = glm::vec3(dir_vec4);
 
     // Log new direction for debugging
-    std::cout << "New Direction: " << light->direction.x << ", " 
-              << light->direction.y << ", " << light->direction.z << std::endl;
+    // std::cout << "New Direction: " << light->direction.x << ", " 
+    //           << light->direction.y << ", " << light->direction.z << std::endl;
 
     transform = glm::translate(glm::vec3(dir_vec4));
     // 

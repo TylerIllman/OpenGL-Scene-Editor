@@ -67,75 +67,32 @@
         "enabled": true,
         "label": "Point Light",
         "light_attenuation": [
+            1.0,
             0.0,
-            0.05000000074505806,
-            0.4000000059604645
+            0.25
         ],
         "name": "Default Point Light",
         "position": [
             1.0,
-            2.309999942779541,
-            0.4300000071525574
+            2.0,
+            1.0
         ],
         "visible": true,
         "visual_scale": 1.0
     },
     {
-        "diffuse_texture": {
-            "filename": "crate.png",
-            "is_flipped": false,
-            "is_srgb": true
-        },
+        "colour": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
         "enabled": true,
-        "label": "Entity",
-        "local_transform": {
-            "euler_rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "position": [
-                -2.619999885559082,
-                1.1799999475479126,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "material": {
-            "ambient_tint": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "diffuse_tint": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "shininess": 512.0,
-            "specular_tint": [
-                1.0,
-                1.0,
-                1.0,
-                33.869998931884766
-            ],
-            "texture_scale": [
-                2.5899999141693115,
-                7.989999771118164
-            ]
-        },
-        "model": "cube.obj",
-        "name": "New Entity",
-        "specular_map_texture": {
-            "filename": "crate.png",
-            "is_flipped": false,
-            "is_srgb": false
-        }
+        "label": "Directional Light",
+        "name": "New Directional Light",
+        "pitch": 0.0,
+        "visible": true,
+        "visual_scale": 1.0,
+        "yaw": 0.0
     }
 ]
