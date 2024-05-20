@@ -79,5 +79,19 @@
         ],
         "visible": true,
         "visual_scale": 1.0
+    },
+    {
+        "colour": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "enabled": true,
+        "label": "Directional Light",
+        "name": "New Directional Light",
+        "pitch": 0.0,
+        "visible": true,
+        "visual_scale": 1.0,
+        "yaw": 0.0
     }
-]

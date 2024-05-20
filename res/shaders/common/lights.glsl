@@ -27,7 +27,7 @@ struct LightCalculatioData {
 struct PointLightData {
     vec3 position;
     vec3 colour;
-    // added for light attenuation
+    // added for atten
     vec3 light_attenuation;
 };
 
@@ -79,7 +79,8 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
 
     vec3 light_dir = normalize(directional_light.direction);
-    vec3 light_color = directional_light.color * 0.4;
+    // Multiply color by 0.1 to decrease intensity
+    vec3 light_color = directional_light.color * 0.1;
 
     // Apply yaw rotation around the up axis (y-axis)
     //direction = glm::rotate(direction, glm::degrees(directional_light.yaw), vec3(0.0f, 1.0f, 0.0f));
@@ -135,9 +136,6 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     }
     #endif
 
-    #if NUM_PL > 0
-    total_ambient /= float(NUM_PL);
-    #endif
 
     #if NUM_DL > 0
     for (int i = 0; i < NUM_DL; i++) {
@@ -148,6 +146,19 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     #if NUM_DL > 0
       total_ambient /= float(NUM_DL);
     #endif
+
+    #if NUM_PL > 0
+    total_ambient /= float(NUM_PL);
+    #endif
+
+    // #if NUM_PL > 0 && NUM_DL > 0
+    //   total_ambient /= float(NUM_PL + NUM_DL);
+    // #elif NUM_DL > 0 
+    //   total_ambient /= float(NUM_DL);
+    // #elif NUM_PL > 0
+    //   total_ambient /= float(NUM_PL);
+    // #endif
+
 
     // Create a hard-coded directional light
     // DirectionalLightData hardcoded_light;

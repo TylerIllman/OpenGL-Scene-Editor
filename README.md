@@ -34,7 +34,84 @@ lights.glsl
 - Lights.glsl added struct to store diractional light data,
 - lights.cpp added vector to store all directional lights
 - Basellitentity shader h and cpp
+- EditorScene.cpp add dirctional light to json gens
 
-QUESTION: should the pitch yaw calcs be done in shader ()
+# TODO
 
-# Base lit entity shader dir ligh pitch yaw calcs need to move to directional light el cpp update instance data
+- Remove unnecessary comments
+
+---
+
+# Report Scratch
+
+### Part E: Texture Scaling
+
+In order to allow the textures applied to elements within scene editor to be scaled, a number of changes had to be made. Firstly, a field had to be added to the `BaseLitEntityMaterial` struct with in the BaseLitEntityShader.h file, which can be seen below. By doing so, each entity now had a vec2 associated with them containing it's `x` and `y` texture scale factor. In order to pass these details between the program and the shaders, a location within the protected material data struct was also added.
+
+```c++
+struct BaseLitEntityMaterial {
+    glm::vec4 diffuse_tint;
+    glm::vec4 specular_tint;
+    glm::vec4 ambient_tint;
+    float shininess;
+    glm::vec2 texture_scale; // Added for texture sclaing
+};
+```
+
+In order to then make the texture scaling interactive, changes had to be made within the `SceneElement.cpp` file. Specifically, a `DragFloat2` element had to be added within the `...imgui_edit_section(...)` function to allow the user to adjust the scale using the GUI, this can be seen below.
+
+```c++
+void EditorScene::LitMaterialComponent::add*material_imgui_edit_section(MasterRenderScene& /\_render_scene*/, const SceneContext& /_scene_context_/) {
+bool material_changed = false;
+ImGui::Text("Material");
+
+    ...
+
+    material_changed |= ImGui::DragFloat("Ambient Factor", &material.ambient_tint[3], 0.01f, 0.0f, FLT_MAX);
+    material_changed |= ImGui::DragFloat("Shininess", &material.shininess, 0.3f, 0.0f, FLT_MAX);
+
+    // Added for texture scaling
+    material_changed |= ImGui::DragFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 0, FLT_MAX);
+
+    ...
+}
+```
+
+Also within the `SceneElement.cpp` file, the functions responsible for loading and saving to the json save files had to be edited to include saving the texture scaling data. These changes had to be made for each of the emissive material components as well.
+
+```C++
+void EditorScene::LitMaterialComponent::update_material_from_json(const json& json) {
+auto m = json["material"];
+material.diffuse_tint = m["diffuse_tint"];
+material.specular_tint = m["specular_tint"];
+material.ambient_tint = m["ambient_tint"];
+material.shininess = m["shininess"];
+// ADDED FOR TEXTURE SCALING
+material.texture_scale = m["texture_scale"];
+}
+
+json EditorScene::LitMaterialComponent::material_into_json() const {
+return {"material", {
+{"diffuse_tint", material.diffuse_tint},
+{"specular_tint", material.specular_tint},
+{"ambient_tint", material.ambient_tint},
+{"shininess", material.shininess},
+// ADDED TO STORE TEXTURE SCALING
+{"texture_scale", material.texture_scale}
+}};
+}
+```
+
+Finally, the texutre scale details had to be used to actually scale the textures. This was done within each element types corresponding fragment shaders. To do this the fragment shader had to be adjusted to receive the texture_scale as a uniform vec2. Then to actually scale the texture, simply had to multiply the standard texture coordinates by the texture scale factors. These changes can be seen below. These changes had to be made individually for each of the different element type's corresponding fragment shader files.
+
+```C++
+...
+
+uniform vec2 texture_scale;
+
+...
+
+vec2 scaled_coords = frag_in.texture_coordinate \* texture_scale;
+
+...
+```
