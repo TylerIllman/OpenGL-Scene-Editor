@@ -132,6 +132,7 @@ void EditorScene::LitMaterialComponent::add_material_imgui_edit_section(MasterRe
     material_changed |= ImGui::DragFloat("Ambient Factor", &material.ambient_tint[3], 0.01f, 0.0f, FLT_MAX);
     material_changed |= ImGui::DragFloat("Shininess", &material.shininess, 0.3f, 0.0f, FLT_MAX);
 
+    // Added for texture scaling
     material_changed |= ImGui::DragFloat2("Texture Scale", &material.texture_scale.x, 0.01f, 0, FLT_MAX);
 
     ImGui::Spacing();
