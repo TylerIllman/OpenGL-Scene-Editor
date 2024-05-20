@@ -136,9 +136,6 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     }
     #endif
 
-    #if NUM_PL > 0
-    total_ambient /= float(NUM_PL);
-    #endif
 
     #if NUM_DL > 0
     for (int i = 0; i < NUM_DL; i++) {
@@ -149,6 +146,19 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     #if NUM_DL > 0
       total_ambient /= float(NUM_DL);
     #endif
+
+    #if NUM_PL > 0
+    total_ambient /= float(NUM_PL);
+    #endif
+
+    // #if NUM_PL > 0 && NUM_DL > 0
+    //   total_ambient /= float(NUM_PL + NUM_DL);
+    // #elif NUM_DL > 0 
+    //   total_ambient /= float(NUM_DL);
+    // #elif NUM_PL > 0
+    //   total_ambient /= float(NUM_PL);
+    // #endif
+
 
     // Create a hard-coded directional light
     // DirectionalLightData hardcoded_light;

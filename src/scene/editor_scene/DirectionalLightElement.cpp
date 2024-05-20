@@ -38,8 +38,6 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     light_element->light->colour = j["colour"];
     light_element->visible = j["visible"];
     light_element->visual_scale = j["visual_scale"];
-    // Added for attenuation
-    // light_element->light->light_attenuation = j["light_attenuation"];
 
     light_element->light->pitch = j["pitch"];
     light_element->light->pitch = j["yaw"];
@@ -56,8 +54,6 @@ json EditorScene::DirectionalLightElement::into_json() const {
         {"visual_scale", visual_scale},
         {"pitch", light->pitch},
         {"yaw", light->yaw},
-        // Added for parameterisation of attenuation
-        // {"light_attenuation", light->light_attenuation}
     };
 }
 
@@ -86,9 +82,6 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
     transformUpdated |= ImGui::DragFloat("Visual Scale", &visual_scale, 0.01f, 0.0f, FLT_MAX);
     ImGui::DragDisableCursor(scene_context.window);
 
-    // Added for light attenuation
-    // ImGui::Spacing();
-    // transformUpdated |= ImGui::DragFloat3("Light Attenuation", &light->light_attenuation[0], 0.01f, 0.0f, FLT_MAX);
 
     // float pitch_degrees = glm::degrees(pitch);
     transformUpdated |= ImGui::SliderFloat("Pitch", &light->pitch, -90.0f, 90.0f);
