@@ -39,7 +39,7 @@ std::unique_ptr<EditorScene::DirectionalLightElement> EditorScene::DirectionalLi
     light_element->visual_scale = j["visual_scale"];
 
     light_element->light->pitch = j["pitch"];
-    light_element->light->pitch = j["yaw"];
+    light_element->light->yaw = j["yaw"];
 
     light_element->update_instance_data();
     return light_element;

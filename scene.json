@@ -81,64 +81,6 @@
         "visual_scale": 1.0
     },
     {
-        "diffuse_texture": {
-            "filename": "[WHITE]",
-            "is_flipped": false,
-            "is_srgb": false
-        },
-        "enabled": true,
-        "label": "Entity",
-        "local_transform": {
-            "euler_rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "position": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "material": {
-            "ambient_tint": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "diffuse_tint": [
-                1.0,
-                0.054901961237192154,
-                0.0,
-                1.0
-            ],
-            "shininess": 512.0,
-            "specular_tint": [
-                1.0,
-                1.0,
-                0.0,
-                1.0
-            ],
-            "texture_scale": [
-                1.0,
-                1.0
-            ]
-        },
-        "model": "cube.obj",
-        "name": "New Entity",
-        "specular_map_texture": {
-            "filename": "[WHITE]",
-            "is_flipped": false,
-            "is_srgb": false
-        }
-    },
-    {
         "colour": [
             1.0,
             1.0,
@@ -148,9 +90,9 @@
         "enabled": true,
         "label": "Directional Light",
         "name": "New Directional Light",
-        "pitch": -45.8120002746582,
+        "pitch": 57.50899887084961,
         "visible": true,
-        "visual_scale": 10.140000343322754,
-        "yaw": -134.0
+        "visual_scale": 1.0,
+        "yaw": -51.0
     }
 ]
