@@ -20,14 +20,12 @@ struct LightCalculatioData {
     vec3 ws_frag_position;
     vec3 ws_view_dir;
     vec3 ws_normal;
-    // Added for parameterising light attenuation
-
 };
 
 struct PointLightData {
     vec3 position;
     vec3 colour;
-    // added for atten
+    // added for light attenuation
     vec3 light_attenuation;
 };
 
@@ -35,14 +33,12 @@ struct PointLightData {
 struct DirectionalLightData {
     vec3 direction;
     vec3 color;
-    // float pitch;
-    // float yaw;
 };
 
 
 // Calculations
-
 const float ambient_factor = 0.002f;
+
 
 // Point Lights
 void point_light_calculation(PointLightData point_light, LightCalculatioData calculation_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
@@ -51,10 +47,9 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
     // Calculate distance between fragment and light
     float distance = length(ws_light_offset);
 
-    // vec3 light_attenuation = vec3(1.0, 0.0, 0.25);
 
-    // Attenuation factor using inverse square law
-    // float attenuation = 1.0 / (1.0 + 0.25 * distance * distance);
+
+    // Attenuation calculation
     float attenuation = 1.0 / (point_light.light_attenuation.x + point_light.light_attenuation.y * distance + point_light.light_attenuation.z * distance * distance);
 
     // Ambient
@@ -79,14 +74,10 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
 
     vec3 light_dir = normalize(directional_light.direction);
+
     // Multiply color by 0.1 to decrease intensity
     vec3 light_color = directional_light.color * 0.1;
 
-    // Apply yaw rotation around the up axis (y-axis)
-    //direction = glm::rotate(direction, glm::degrees(directional_light.yaw), vec3(0.0f, 1.0f, 0.0f));
-
-    // Apply pitch rotation around the right axis (x-axis)
-    //direction = glm::rotate(direction, glm::degrees(directional_light.pitch), vec3(1.0f, 0.0f, 0.0f));
 
     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0); // Calculate the diffuse strength based on angle between light and normal
 
@@ -99,7 +90,7 @@ void directional_light_calculation(DirectionalLightData directional_light, Light
     float spec = pow(max(dot(calc_data.ws_normal, halfway_dir), 0.0), shininess); // Specular strength based on shininess
     vec3 specular = spec * light_color; // Specular reflection component
 
-    // Ambient lighting could be a small, constant addition or based on some environmental factors
+    // Ambient lighting
     vec3 ambient = 0.005 * light_color; // Simple ambient lighting
 
     // Accumulate the computed lighting components to the total lighting
@@ -147,10 +138,6 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     #if NUM_DL > 0
       total_ambient /= float(NUM_DL);
     #endif
-    
-    // #if NUM_PL > 0
-    // total_ambient /= float(NUM_PL);
-    // #endif
 
     #if NUM_PL > 0 && NUM_DL > 0
       total_ambient /= float(NUM_PL + NUM_DL);
@@ -160,23 +147,6 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
       total_ambient /= float(NUM_PL);
     #endif
 
-
-  //   // START HARD CODE TEST
-  // 
-  //   #if NUM_DL > 1
-  //   DirectionalLightData hardcode_directional_lights[2] = {
-  //       {vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), 1.0}, // Red light from the right
-  //       {vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), 1.0}  // Blue light from above
-  //   };
-  //
-  //   for (int i = 0; i < 2; i++) {
-  //     directional_light_calculation(hardcode_directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
-  //   }
-  //
-  //   total_ambient /= float(2);
-  //
-  //   #endif
-  //   //END HARD CODE TEST
 
     total_diffuse *= material.diffuse_tint;
     total_specular *= material.specular_tint;

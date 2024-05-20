@@ -62,8 +62,6 @@ struct DirectionalLight {
         return DirectionalLight(glm::vec3{}, glm::vec4{});
     }
 
-    // glm::vec3 light_attenuation{1.0f, 0.0f, 0.25f};
-
     struct Data {
         alignas(16) glm::vec3 direction;
         alignas(16) glm::vec3 colour;

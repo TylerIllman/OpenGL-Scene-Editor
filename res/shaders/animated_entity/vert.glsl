@@ -20,11 +20,6 @@ out VertexOut {
 // Per instance data
 uniform mat4 model_matrix;
 
-// Material properties
-uniform vec3 diffuse_tint;
-uniform vec3 specular_tint;
-uniform vec3 ambient_tint;
-uniform float shininess;
 
 // Light Data
 #if NUM_PL > 0

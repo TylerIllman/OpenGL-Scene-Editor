@@ -13,7 +13,6 @@ namespace EditorScene {
 
 
         glm::vec3 direction;
-        // glm::vec3 position;
         bool visible = true;
         float visual_scale = 1.0f;
         std::shared_ptr<DirectionalLight> light;

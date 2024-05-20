@@ -11,20 +11,17 @@ layout(location = 0) out vec4 out_colour;
 
 // Global Data
 uniform float inverse_gamma;
+uniform vec3 ws_view_position;
+uniform mat4 projection_view_matrix;
+uniform vec2 texture_scale;
+uniform sampler2D diffuse_texture;
+uniform sampler2D specular_map_texture;
 
+//Material properties
 uniform vec3 diffuse_tint;
 uniform vec3 specular_tint;
 uniform vec3 ambient_tint;
 uniform float shininess;
-
-uniform vec3 ws_view_position;
-uniform mat4 projection_view_matrix;
-
-// ADDED BELOW LINE
-uniform vec2 texture_scale;
-
-uniform sampler2D diffuse_texture;
-uniform sampler2D specular_map_texture; 
 
 // Light Data
 #if NUM_PL > 0

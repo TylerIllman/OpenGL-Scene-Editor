@@ -14,7 +14,6 @@ std::unique_ptr<EditorScene::PointLightElement> EditorScene::PointLightElement::
         PointLight::create(
             glm::vec3{}, // Set via update_instance_data()
             glm::vec4{1.0f}
-            // glm::vec3{1.0f, 0.0f, 0.25f} //default vals for light attenuation
         ),
         EmissiveEntityRenderer::Entity::create(
             scene_context.model_loader.load_from_file<EmissiveEntityRenderer::VertexData>("sphere.obj"),

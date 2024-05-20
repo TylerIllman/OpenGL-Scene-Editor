@@ -18,8 +18,7 @@ void BaseLitEntityShader::get_uniforms_set_bindings() {
     specular_tint_location = get_uniform_location("specular_tint");
     ambient_tint_location = get_uniform_location("ambient_tint");
     shininess_location = get_uniform_location("shininess");
-    
-    // ------
+
     //ADDED BELOW LINE FOR TEXTURE SCALING
     texture_scale_location = get_uniform_location("texture_scale");
 
@@ -50,7 +49,6 @@ void BaseLitEntityShader::set_instance_data(const BaseLitEntityInstanceData& ins
     glProgramUniform3fv(id(), ambient_tint_location, 1, &scaled_ambient_tint[0]);
     glProgramUniform1fv(id(), shininess_location, 1, &entity_material.shininess);
 
-    // ADDED BLEOW LINE FOR TEXTURES SCALING
     // Set the texture scale uniform
     glProgramUniform2fv(id(), texture_scale_location, 1, &entity_material.texture_scale.x);
 
@@ -58,8 +56,6 @@ void BaseLitEntityShader::set_instance_data(const BaseLitEntityInstanceData& ins
 
 void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_lights) {
     uint count = std::min(MAX_PL, (uint) point_lights.size());
-    
-    // std::cout << "NUM point lights: " << count << std::endl;
 
     for (uint i = 0; i < count; i++) {
         const PointLight& point_light = point_lights[i];
@@ -68,7 +64,7 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
 
         point_lights_ubo.data[i].position = point_light.position;
         point_lights_ubo.data[i].colour = scaled_colour;
-        //
+
         // ADDED below line for light attenuation
         point_lights_ubo.data[i].light_attenuation = point_light.light_attenuation;
     }

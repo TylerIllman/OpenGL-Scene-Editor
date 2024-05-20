@@ -13,11 +13,6 @@ std::vector<PointLight> LightScene::get_nearest_point_lights(glm::vec3 target, s
 }
 
 // ADDED for directional lights
-// std::vector<DirectionalLight> LightScene::get_directional_lights() const {
-//   return directional_lights;
-// }
-
-// ADDED for directional lights
 std::vector<DirectionalLight> LightScene::get_directional_lights() const {
     std::vector<DirectionalLight> active_directional_lights;
     for (const auto& light : directional_lights) {

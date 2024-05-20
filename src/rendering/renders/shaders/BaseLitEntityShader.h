@@ -76,7 +76,7 @@ public:
 
     void set_point_lights(const std::vector<PointLight>& point_lights);
 
-    //ADDED
+    //ADDED FOR DIRECTIONAL LIGHT
     void set_directional_lights(const std::vector<DirectionalLight>& directional_lights);
 protected:
     void get_uniforms_set_bindings() override;
