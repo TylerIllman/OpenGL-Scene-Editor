@@ -38,4 +38,3 @@ Baselitentityshader.cpp: added line in setpoints to update attenuation params
 # TODO
 
 - Remove unnecessary comments
-- Edit Point light data default ambience (too high)

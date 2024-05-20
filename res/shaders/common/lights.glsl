@@ -79,7 +79,8 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
 
     vec3 light_dir = normalize(directional_light.direction);
-    vec3 light_color = directional_light.color;
+    // Multiply color by 0.1 to decrease intensity
+    vec3 light_color = directional_light.color * 0.1;
 
     // Apply yaw rotation around the up axis (y-axis)
     //direction = glm::rotate(direction, glm::degrees(directional_light.yaw), vec3(0.0f, 1.0f, 0.0f));
