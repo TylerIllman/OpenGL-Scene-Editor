@@ -96,10 +96,11 @@ void EditorScene::LocalTransformComponent::add_local_transform_imgui_edit_sectio
 glm::mat4 EditorScene::LocalTransformComponent::calc_model_matrix() const {
     glm::mat4 translate = glm::translate(position);
     glm::mat4 scaling = glm::scale(scale);
-    glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), euler_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate around x-axis
-    rotation = glm::rotate(rotation, euler_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f)); // Rotate around y-axis
-    rotation = glm::rotate(rotation, euler_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-    return translate * scaling * rotation;
+    glm::mat4 x_rotation = glm::rotate(euler_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+    glm::mat4 y_rotation = glm::rotate(euler_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 z_rotation = glm::rotate(euler_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 combined_rotation = x_rotation * y_rotation * z_rotation;
+    return translate * scaling * combined_rotation;
 }
 
 void EditorScene::LocalTransformComponent::update_local_transform_from_json(const json& json) {

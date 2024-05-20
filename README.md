@@ -20,6 +20,7 @@ ALSO: Had to edit the update material from json and material to json file ins th
 edited pointLightElement.cpp: added attenuation vars
 editied Lights.h: edited struct to allow for attenuation
 Baselitentityshader.cpp: added line in setpoints to update attenuation params
+lights.glsl
 
 # Part H: Directional Light Source
 
