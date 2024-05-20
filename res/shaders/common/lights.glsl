@@ -77,15 +77,15 @@ void point_light_calculation(PointLightData point_light, LightCalculatioData cal
 
 
 void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
-    // Use the actual direction and color from the directional light data
-    vec3 light_dir = normalize(directional_light.direction); // Ensure the direction is normalized and correct
-    vec3 light_color = directional_light.color; // Use the actual light color
+
+    vec3 light_dir = normalize(directional_light.direction);
+    vec3 light_color = directional_light.color;
 
     // Apply yaw rotation around the up axis (y-axis)
-    // direction = glm::rotate(direction, glm::degrees(directional_light.yaw), vec3(0.0f, 1.0f, 0.0f));
+    //direction = glm::rotate(direction, glm::degrees(directional_light.yaw), vec3(0.0f, 1.0f, 0.0f));
 
     // Apply pitch rotation around the right axis (x-axis)
-    // direction = glm::rotate(direction, glm::degrees(directional_light.pitch), vec3(1.0f, 0.0f, 0.0f));
+    //direction = glm::rotate(direction, glm::degrees(directional_light.pitch), vec3(1.0f, 0.0f, 0.0f));
 
     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0); // Calculate the diffuse strength based on angle between light and normal
 
@@ -106,36 +106,6 @@ void directional_light_calculation(DirectionalLightData directional_light, Light
     total_specular += specular;
     total_ambient += ambient;
 }
-
-
-
-
-// Function to calculate directional light
-// void directional_light_calculation(DirectionalLightData directional_light, LightCalculatioData calc_data, float shininess, inout vec3 total_diffuse, inout vec3 total_specular, inout vec3 total_ambient) {
-//  // Hard code the light direction and color
-//     vec3 light_dir = normalize(vec3(-1.0, -1.0, -1.0)); // Direction simulating the light coming from above and to the sides
-//     vec3 light_color = vec3(1.0, 1.0, 1.0); // White light
-
-
-//
-//     // Diffuse lighting calculation
-//     float diff = max(dot(calc_data.ws_normal, light_dir), 0.0); // Calculate the cosine of the angle between the normal and the light vector
-//     vec3 diffuse = diff * light_color; // Diffuse reflection based on Lambert's Cosine Law
-//
-//     // Specular lighting calculation using Blinn-Phong model
-//     vec3 view_dir = normalize(calc_data.ws_view_dir); // Direction from surface to viewer (camera)
-//     vec3 halfway_dir = normalize(light_dir + view_dir); // Halfway vector between light direction and view direction
-//     float spec = pow(max(dot(calc_data.ws_normal, halfway_dir), 0.0), shininess); // Specular component based on shininess
-//     vec3 specular = spec * light_color; // Specular reflection scaled by light color
-//
-//     // Ambient lighting calculation
-//     vec3 ambient = 0.05 * light_color; // Ambient light is usually a small, constant addition
-//
-//     // Add contributions to the total lighting
-//     total_diffuse += diffuse;
-//     total_specular += specular;
-//     total_ambient += ambient;
-// }
 
 
 

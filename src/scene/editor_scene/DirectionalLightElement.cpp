@@ -95,7 +95,7 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
 
     // float yaw_degrees = glm::degrees(yaw);
     transformUpdated |= ImGui::DragFloat("Yaw", &light->yaw);
-  
+
     if (transformUpdated) {
         update_instance_data();
     }

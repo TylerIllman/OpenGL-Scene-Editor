@@ -118,6 +118,9 @@ void EditorScene::EditorScene::open(const SceneContext& scene_context) {
         {EmissiveEntityElement::ELEMENT_TYPE_NAME, [](const SceneContext& scene_context, ElementRef parent, const json& j) { return EmissiveEntityElement::from_json(scene_context, parent, j); }},
         {PointLightElement::ELEMENT_TYPE_NAME,     [](const SceneContext& scene_context, ElementRef parent, const json& j) { return PointLightElement::from_json(scene_context, parent, j); }},
         {GroupElement::ELEMENT_TYPE_NAME,          [](const SceneContext&, ElementRef parent, const json& j) { return GroupElement::from_json(parent, j); }},
+
+        //ADDED to add directional data to json save files
+        {DirectionalLightElement::ELEMENT_TYPE_NAME,     [](const SceneContext& scene_context, ElementRef parent, const json& j) { return DirectionalLightElement::from_json(scene_context, parent, j); }},
     };
 }
 

@@ -21,7 +21,7 @@ std::vector<PointLight> LightScene::get_nearest_point_lights(glm::vec3 target, s
 std::vector<DirectionalLight> LightScene::get_directional_lights() const {
     std::vector<DirectionalLight> active_directional_lights;
     for (const auto& light : directional_lights) {
-        // if (light->is_active()) {  // Assuming there is an isActive() method to check the light's state
+        //if (light->is_active()) {  // Assuming there is an isActive() method to check the light's state
         active_directional_lights.push_back(*light);
         // }
     }
