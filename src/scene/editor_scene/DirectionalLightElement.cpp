@@ -95,9 +95,6 @@ void EditorScene::DirectionalLightElement::add_imgui_edit_section(MasterRenderSc
 }
 
 void EditorScene::DirectionalLightElement::update_instance_data() {
-  //trans based on dir moves in world
-  // CHANGE POSITION
-
 
     // Convert pitch and yaw from degrees to radians
     float pitch_rad = glm::radians(light->pitch);
@@ -139,6 +136,7 @@ void EditorScene::DirectionalLightElement::update_instance_data() {
 
     glm::vec3 normalised_colour = glm::vec3(light->colour) / glm::compMax(glm::vec3(light->colour));
      light_sphere->instance_data.material.emission_tint = glm::vec4(normalised_colour, light_sphere->instance_data.material.emission_tint.a);
+
 }
 
 const char* EditorScene::DirectionalLightElement::element_type_name() const {

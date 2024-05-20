@@ -67,9 +67,6 @@ struct DirectionalLight {
     struct Data {
         alignas(16) glm::vec3 direction;
         alignas(16) glm::vec3 colour;
-        // alignas(16) glm::vec3 light_attenuation;
-        float pitch;
-        float yaw;
     };
 };
 

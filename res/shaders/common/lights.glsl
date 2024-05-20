@@ -100,12 +100,13 @@ void directional_light_calculation(DirectionalLightData directional_light, Light
     vec3 specular = spec * light_color; // Specular reflection component
 
     // Ambient lighting could be a small, constant addition or based on some environmental factors
-    vec3 ambient = 0.05 * light_color; // Simple ambient lighting
+    vec3 ambient = 0.005 * light_color; // Simple ambient lighting
 
     // Accumulate the computed lighting components to the total lighting
     total_diffuse += diffuse;
     total_specular += specular;
     total_ambient += ambient;
+
 }
 
 
@@ -143,10 +144,10 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     }
     #endif
 
-    // #if NUM_DL > 0
-    //   total_ambient /= float(NUM_DL);
-    // #endif
-    //
+    #if NUM_DL > 0
+      total_ambient /= float(NUM_DL);
+    #endif
+    
     // #if NUM_PL > 0
     // total_ambient /= float(NUM_PL);
     // #endif
@@ -160,14 +161,22 @@ LightingResult total_light_calculation(LightCalculatioData light_calculation_dat
     #endif
 
 
-    // Create a hard-coded directional light
-    // DirectionalLightData hardcoded_light;
-    // hardcoded_light.direction = vec3(-1.0, -1.0, -1.0); // Example direction
-    // hardcoded_light.color = vec3(0.0, 1.0, 1.0); // White light
-
-    // #if NUM_DL > 0
-    //   directional_light_calculation(hardcoded_light, light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
-    // #endif
+  //   // START HARD CODE TEST
+  // 
+  //   #if NUM_DL > 1
+  //   DirectionalLightData hardcode_directional_lights[2] = {
+  //       {vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), 1.0}, // Red light from the right
+  //       {vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), 1.0}  // Blue light from above
+  //   };
+  //
+  //   for (int i = 0; i < 2; i++) {
+  //     directional_light_calculation(hardcode_directional_lights[i], light_calculation_data, material.shininess, total_diffuse, total_specular, total_ambient);
+  //   }
+  //
+  //   total_ambient /= float(2);
+  //
+  //   #endif
+  //   //END HARD CODE TEST
 
     total_diffuse *= material.diffuse_tint;
     total_specular *= material.specular_tint;

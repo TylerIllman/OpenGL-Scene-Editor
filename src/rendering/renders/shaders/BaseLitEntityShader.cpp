@@ -68,6 +68,7 @@ void BaseLitEntityShader::set_point_lights(const std::vector<PointLight>& point_
 
         point_lights_ubo.data[i].position = point_light.position;
         point_lights_ubo.data[i].colour = scaled_colour;
+        //
         // ADDED below line for light attenuation
         point_lights_ubo.data[i].light_attenuation = point_light.light_attenuation;
     }
@@ -87,6 +88,9 @@ void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLi
         const DirectionalLight& directional_light = directional_lights[i];
 
         glm::vec3 scaled_colour = glm::vec3(directional_light.colour) * directional_light.colour.a;
+        
+        // std::cout << "index: " << i << "colour: " << scaled_colour.x << ", " << scaled_colour.y << ", " << scaled_colour.z << std::endl;
+        // std::cout << "count " << count << std::endl;
 
         // Convert pitch and yaw from degrees to radians for rotation
         // float pitch_rad = glm::radians(directional_light.pitch);
@@ -104,8 +108,6 @@ void BaseLitEntityShader::set_directional_lights(const std::vector<DirectionalLi
         directional_lights_ubo.data[i].direction = glm::vec3(directional_light.direction);
         directional_lights_ubo.data[i].colour = scaled_colour;
 
-        // ADDED below line for light attenuation
-        // directional_lights_ubo.data[i].light_attenuation = directional_light.light_attenuation;
     }
 
     set_frag_define("NUM_DL", Formatter() << count);
